@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: workspaces-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: gloo-mesh
+  source:
+    repoURL: https://github.com/lamadome/GlooOps-lamadome
+    targetRevision: main
+    path: teams/platform/workspaces/base
+  destination:
+    name: mgmt
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
