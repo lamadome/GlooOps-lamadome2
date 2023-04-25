@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - argo-app-workspacesettings.yaml
 - gateways-workspace.yaml
+- bookinfo-workspace.yaml
