@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bookinfo
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  generators:
+  - clusters: {}
+  template:
+    metadata:
+      name: 'bookinfo-{{name}}'
+    spec:
+      project: bookinfo
+      source:
+        repoURL: 'https://github.com/lamadome/GlooOps-lamadome'
+        targetRevision: main
+        path: teams/bookinfo/{{name}}
+      destination:
+        name: '{{name}}'
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: false
