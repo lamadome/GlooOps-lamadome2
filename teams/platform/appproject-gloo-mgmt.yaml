@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: gloo-mesh
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: Gloo Mesh
+  destinations:
+  - name: '*'
+    namespace: '*'
+    server: '*'
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceRepos:
+  - '*'
