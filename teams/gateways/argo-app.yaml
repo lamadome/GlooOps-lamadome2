@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: gateways-team
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: cluster1
+      - cluster: cluster2
+      - cluster: mgmt
+  template:
+    metadata:
+      name: 'gateways-{{cluster}}'
+    spec:
+      project: gloo-mesh
+      source:
+        repoURL: https://github.com/lamadome/GlooOps-lamadome
+        targetRevision: HEAD
+        path: 'teams/gateways/{{cluster}}'
+      destination:
+        name: '{{cluster}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
