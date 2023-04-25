@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: gloo-gateways
+  namespace: argocd
+spec:
+  generators:
+  - list:
+        elements:
+        - name: cluster1
+          cluster: cluster1
+        - name: cluster2
+          cluster: cluster2
+        - name: mgmt-cluster1
+          cluster: mgmt
+        - name: mgmt-cluster2
+          cluster: mgmt
+  template:
+    metadata:
+      name: 'istio-lifecycle-{{name}}'
+    spec:
+      project: gloo-mesh
+      source:
+        repoURL: 'https://github.com/lamadome/GlooOps-lamadome'
+        targetRevision: HEAD
+        path: 'teams/platform/istio/{{name}}'
+      destination:
+        name: '{{cluster}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
