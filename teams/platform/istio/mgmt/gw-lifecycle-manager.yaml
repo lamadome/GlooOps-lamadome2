@@ -1,0 +1,60 @@
+apiVersion: admin.gloo.solo.io/v2
+kind: GatewayLifecycleManager
+metadata:
+ name: cluster-ingress
+ namespace: gloo-mesh
+spec:
+ installations:
+   - clusters:
+     - name: <cluster>
+       activeGateway: false
+     gatewayRevision: 1-17
+     istioOperatorSpec:
+       profile: empty
+       hub: us-docker.pkg.dev/gloo-mesh/istio-workshops
+       tag: 1.17.1-solo
+       values:
+         gateways:
+           istio-ingressgateway:
+             customService: true
+       components:
+         ingressGateways:
+           - name: istio-ingressgateway
+             namespace: istio-gateways
+             enabled: true
+             label:
+               istio: ingressgateway
+---
+apiVersion: admin.gloo.solo.io/v2
+kind: GatewayLifecycleManager
+metadata:
+ name: cluster-eastwest
+ namespace: gloo-mesh
+spec:
+ installations:
+   - clusters:
+     - name: <cluster>
+       activeGateway: false
+     gatewayRevision: 1-17
+     istioOperatorSpec:
+       profile: empty
+       hub: us-docker.pkg.dev/gloo-mesh/istio-workshops
+       tag: 1.17.1-solo
+       values:
+         gateways:
+           istio-ingressgateway:
+             customService: true
+       components:
+         ingressGateways:
+           - name: istio-eastwestgateway
+             namespace: istio-gateways
+             enabled: true
+             label:
+               istio: eastwestgateway
+               topology.istio.io/network: <cluster>
+             k8s:
+               env:
+                 - name: ISTIO_META_ROUTER_MODE
+                   value: "sni-dnat"
+                 - name: ISTIO_META_REQUESTED_NETWORK_VIEW
+                   value: <cluster>

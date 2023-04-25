@@ -1,0 +1,49 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../mgmt/
+
+patches:
+  - target:
+      kind: IstioLifecycleManager
+      name: cluster-installation
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: cluster1-installation
+      - op: replace
+        path: /spec/installations/0/clusters/0/name
+        value: cluster1
+      - op: replace
+        path: /spec/installations/0/istioOperatorSpec/values/global/multiCluster/clusterName
+        value: cluster1
+      - op: replace
+        path: /spec/installations/0/istioOperatorSpec/values/global/network
+        value: cluster1
+  - target:
+      kind: GatewayLifecycleManager
+      name: cluster-ingress
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: cluster1-ingress
+      - op: replace
+        path: /spec/installations/0/clusters/0/name
+        value: cluster1
+  - target:
+      kind: GatewayLifecycleManager
+      name: cluster-eastwest
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: cluster1-eastwest
+      - op: replace
+        path: /spec/installations/0/clusters/0/name
+        value: cluster1
+      - op: replace
+        path: /spec/installations/0/istioOperatorSpec/components/ingressGateways/0/label/topology.istio.io~1network
+        value: cluster1
+      - op: replace
+        path: /spec/installations/0/istioOperatorSpec/components/ingressGateways/0/k8s/env/1/value
+        value: cluster1

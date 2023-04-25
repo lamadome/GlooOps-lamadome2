@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: gloo-agent
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  generators:
+  - clusters: {}
+  template:
+    metadata:
+      name: 'gloo-agent-{{name}}'
+    spec:
+      project: gloo-mesh
+      source:
+        path: teams/platform/gloo-mesh-agent/{{name}}
+        repoURL: 'https://github.com/lamadome/GlooOps-lamadome'
+        targetRevision: HEAD
+      destination:
+        name: '{{name}}'
+      syncPolicy:
+        automated: {}
