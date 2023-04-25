@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gloo-cluster2
+  namespace: argocd
+spec:
+  ignoreDifferences:
+  - group: apiextensions
+    kind: CustomResourceDefinition
+    name: istiooperators.install.istio.io
+    jsonPointers:
+    - /metadata/labels
+  destination:
+    name: 'cluster2'
+    namespace: gloo-mesh
+  sources:
+    - repoURL:  https://github.com/lamadome/GlooOps-lamadome
+      targetRevision: HEAD
+      ref: myRepo
+    - repoURL: 'https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-agent'
+      targetRevision: 2.2.6
+      chart: gloo-mesh-agent
+      helm:
+        valueFiles:
+            - $myRepo/teams/platform/gloo-mesh-agent/mgmt/values-cluster2.yaml
+  project: gloo-mesh
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+    automated:
+      prune: false
+      selfHeal: false

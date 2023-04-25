@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mgmt-server
+spec:
+  ignoreDifferences:
+  - kind: Secret
+    name: relay-identity-token-secret
+    namespace: gloo-mesh
+    jsonPointers:
+    - /data/token
+  - kind: Secret
+    name: relay-root-tls-secret
+    namespace: gloo-mesh
+    jsonPointers:
+    - /data/ca.crt
+    - /data/tls.key
+  - kind: Secret
+    name: relay-server-tls-secret
+    namespace: gloo-mesh
+    jsonPointers:
+    - /data/ca.crt
+    - /data/tls.key
+    - /data/tls.crt
+  - kind: Secret
+    name: relay-tls-signing-secret
+    namespace: gloo-mesh
+    jsonPointers:
+    - /data/ca.crt
+    - /data/tls.key
+    - /data/tls.crt
+  destination:
+    name: 'mgmt'
+    namespace: gloo-mesh
+  sources:
+    - repoURL:  https://github.com/lamadome/GlooOps-lamadome
+      targetRevision: HEAD
+      ref: myRepo
+    - repoURL: 'https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-enterprise'
+      targetRevision: 2.2.6
+      chart: gloo-mesh-enterprise
+      helm:
+        valueFiles:
+          - $myRepo/teams/platform/mgmt-server/values.yaml
+  project: gloo-mesh
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: false
