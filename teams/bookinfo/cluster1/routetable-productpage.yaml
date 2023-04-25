@@ -24,5 +24,6 @@ spec:
           - ref:
               name: productpage
               namespace: bookinfo-frontends
+            kind: VIRTUAL_DESTINATION
             port:
               number: 9080

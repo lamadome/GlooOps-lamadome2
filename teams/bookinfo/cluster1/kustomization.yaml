@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - bookinfo-workspace-settings.yaml
 - routetable-productpage.yaml
+- virtualdestination-productpage.yaml
