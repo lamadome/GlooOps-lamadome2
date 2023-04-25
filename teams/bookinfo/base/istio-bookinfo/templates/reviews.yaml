@@ -1,0 +1,57 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reviews
+  namespace: {{.Values.global.prefix}}-backends
+  labels:
+    app: reviews
+    service: reviews
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: reviews
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookinfo-reviews
+  namespace: {{.Values.global.prefix}}-backends
+---
+apiVersion: apps/v1
+kind: List
+items:
+{{- range $v := .Values.global.reviews.versions }}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: reviews-{{ $v }}
+      namespace: {{$.Values.global.prefix}}-backends
+      labels:
+        app: reviews
+        version: {{ $v }}
+    spec:
+      replicas: {{$.Values.global.reviews.replicas}}
+      selector:
+        matchLabels:
+          app: reviews
+          version: {{ $v }}
+      template:
+        metadata:
+          labels:
+            app: reviews
+            version: {{ $v }}
+        spec:
+          serviceAccountName: bookinfo-reviews
+          containers:
+          - name: reviews
+            env:
+              - name: CLUSTER_NAME
+                value: {{$.Values.global.cluster}}
+            image: {{$.Values.global.registry}}/istio/examples-bookinfo-reviews-{{ $v }}:{{$.Values.global.reviews.imageTag}}
+            imagePullPolicy: IfNotPresent
+            ports:
+            - containerPort: {{$.Values.global.reviews.port}}
+{{- end }}

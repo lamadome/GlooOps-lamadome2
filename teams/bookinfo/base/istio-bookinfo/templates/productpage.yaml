@@ -1,0 +1,54 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: productpage
+  namespace: {{.Values.global.prefix}}-frontends
+  labels:
+    app: productpage
+    service: productpage
+spec:
+  ports:
+  - port: {{.Values.global.productpage.port}}
+    name: http
+  selector:
+    app: productpage
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookinfo-productpage
+  namespace: {{.Values.global.prefix}}-frontends
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productpage-v1
+  namespace: {{.Values.global.prefix}}-frontends
+  labels:
+    app: productpage
+    version: v1
+spec:
+  replicas: {{.Values.global.productpage.replicas}}
+  selector:
+    matchLabels:
+      app: productpage
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: productpage
+        version: v1
+    spec:
+      serviceAccountName: bookinfo-productpage
+      containers:
+      - name: productpage
+        image: '{{.Values.global.registry}}/istio/examples-bookinfo-productpage-v1:{{.Values.global.productpage.imageTag}}'
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: {{.Values.global.productpage.port}}
+        env:
+          - name: DETAILS_HOSTNAME
+            value: details.bookinfo-backends.svc.cluster.local
+          - name: REVIEWS_HOSTNAME
+            value: reviews.bookinfo-backends.svc.cluster.local

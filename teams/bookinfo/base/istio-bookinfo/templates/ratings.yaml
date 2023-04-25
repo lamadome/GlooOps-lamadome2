@@ -1,0 +1,49 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ratings
+  namespace: {{.Values.global.prefix}}-backends
+  labels:
+    app: ratings
+    service: ratings
+spec:
+  ports:
+  - port: {{.Values.global.ratings.port}}
+    name: http
+  selector:
+    app: ratings
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookinfo-ratings
+  namespace: {{.Values.global.prefix}}-backends
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratings-v1
+  namespace: {{.Values.global.prefix}}-backends
+  labels:
+    app: ratings
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: ratings
+        version: v1
+    spec:
+      serviceAccountName: bookinfo-ratings
+      containers:
+      - name: ratings
+        image: '{{.Values.global.registry}}/istio/examples-bookinfo-ratings-v1:{{.Values.global.ratings.imageTag}}'
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: {{.Values.global.ratings.port}}

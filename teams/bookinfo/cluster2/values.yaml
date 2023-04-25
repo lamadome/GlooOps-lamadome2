@@ -1,0 +1,7 @@
+global:
+  prefix: 'bookinfo'
+  reviews:
+    versions: [v1,v2,v3]
+  cluster: cluster2
+istio:
+  tag: 1-17

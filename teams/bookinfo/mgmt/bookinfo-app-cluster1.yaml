@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bookinfo-app-cluster1
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: bookinfo
+  sources:
+    - repoURL:  'https://github.com/lamadome/GlooOps-lamadome'
+      targetRevision: HEAD
+      ref: myRepo
+    - path: teams/bookinfo/base/istio-bookinfo
+      repoURL: 'https://github.com/lamadome/GlooOps-lamadome'
+      targetRevision: HEAD
+      helm:
+        valueFiles:
+          - $myRepo/teams/bookinfo/cluster1/values.yaml
+  destination:
+    name: 'cluster1'
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
