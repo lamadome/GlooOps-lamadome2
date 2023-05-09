@@ -21,6 +21,7 @@ jobs:
         env:
           ARGOCD_AUTH_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
           ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}
+          ARGOCD_OPTS: --grpc-web
         with:
           version: 2.6.7
           command: app sync mgmt-server
