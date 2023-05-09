@@ -9,31 +9,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/actions/install-argo
-      - uses: actions/upload-artifact@v3
-        with:
-          name: argo-cli
-          path: argocd
-  build:
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  argo-app-sync:
+    runs-on: ubuntu-latest  # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v2
-        with:
-          name: argo-cli
-          path: /usr/local/bin
-      - run: chmod +x /usr/local/bin/argocd
-      - uses: ./.github/actions/create-ephemeral-track
+      - uses: ./.github/actions/install-argo
+      - uses: ./.github/actions/argo-sync-app
         with:
           app-name: mgmt-server
           argo-token: ${{ secrets.ARGOCD_TOKEN }}
