@@ -15,6 +15,7 @@ jobs:
       run:
         shell: bash
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/actions/download-cli
       - uses: actions/upload-artifact@v3
         with:
