@@ -13,7 +13,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: argocd app sync ${{ inputs.app-name }}
+    - run: argocd app sync ${{ inputs.app-name }} --grpc-web
       env:
         ARGOCD_SERVER: ${{ inputs.argo-url }}
         ARGOCD_AUTH_TOKEN: ${{ inputs.argo-token }}
