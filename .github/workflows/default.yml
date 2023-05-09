@@ -24,6 +24,6 @@ jobs:
           ARGOCD_OPTS: --grpc-web
         with:
           version: 2.6.7
-          command: app sync mgmt-server
+          command: version
           options: --grpc-web
 
