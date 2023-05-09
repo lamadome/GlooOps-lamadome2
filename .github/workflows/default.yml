@@ -19,7 +19,7 @@ jobs:
       
       - uses: clowdhaus/argo-cd-action/@main
         env:
-          ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
+          ARGOCD_AUTH_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
           ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}
         with:
           version: 2.6.7
