@@ -1,0 +1,20 @@
+name: create-ephemeral-track
+description: 'Create an ephemeral track'
+inputs:
+  app-name:  # id of input
+    description: 'name of the argo app'
+    required: true
+  argo-token:
+    description: 'Argo token'
+    required: true
+  argo-url:
+    description: 'Argo url'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: argocd app sync ${{ inputs.app-name }}
+      env:
+        ARGOCD_SERVER: ${{ inputs.argo-url }}
+        ARGOCD_AUTH_TOKEN: ${{ inputs.argo-token }}
+      shell: bash

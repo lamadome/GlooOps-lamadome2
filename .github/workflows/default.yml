@@ -9,6 +9,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: ./.github/actions/download-cli
+      - uses: actions/upload-artifact@v3
+        with:
+          name: argo-cli
+          path: argocd
   build:
     runs-on: ubuntu-latest
 
@@ -16,14 +27,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
-      - uses: clowdhaus/argo-cd-action/@main
-        env:
-          ARGOCD_AUTH_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
-          ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}
-          ARGOCD_OPTS: --grpc-web
+      - uses: actions/download-artifact@v2
         with:
-          version: 2.6.7
-          command: version
-          options: --grpc-web
-
+          name: argo-cli
+          path: /usr/local/bin
+      - run: chmod +x /usr/local/bin/argocd
+      - uses: ./.github/actions/create-ephemeral-track
+        with:
+          app-name: mgmt-server
+          argo-token: ${{ secrets.ARGOCD_TOKEN }}
+          argo-url: ${{ secrets.ARGOCD_SERVER }}
