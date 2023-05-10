@@ -20,4 +20,4 @@ jobs:
           app-name: workspaces-app
           argo-token: ${{ secrets.ARGOCD_TOKEN }}
           argo-url: ${{ secrets.ARGOCD_SERVER }}
-          type: app
+          type: apps
