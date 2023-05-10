@@ -12,7 +12,7 @@ spec:
     targetRevision: main
     path: teams/platform/workspaces/mgmt
   destination:
-    name: cluster1
+    name: in-cluster
   syncPolicy:
     automated: null
     retry:
