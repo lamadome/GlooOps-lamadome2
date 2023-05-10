@@ -17,6 +17,6 @@ jobs:
       - uses: ./.github/actions/install-argo
       - uses: ./.github/actions/argo-sync-app
         with:
-          app-name: mgmt-server
+          app-name: workspaces-app
           argo-token: ${{ secrets.ARGOCD_TOKEN }}
           argo-url: ${{ secrets.ARGOCD_SERVER }}
