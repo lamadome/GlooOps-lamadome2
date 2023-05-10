@@ -12,7 +12,7 @@ spec:
     targetRevision: main
     path: teams/platform/workspaces/cluster1
   destination:
-    name: cluster1
+    name: in-cluster
   syncPolicy:
     automated:
       prune: true
