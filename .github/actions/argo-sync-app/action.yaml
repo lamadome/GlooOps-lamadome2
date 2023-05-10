@@ -16,12 +16,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: argocd app sync ${{ inputs.app-name }} --grpc-web
-      if: ${{ inputs.type == 'appset' }}
-      env:
-        ARGOCD_SERVER: ${{ inputs.argo-url }}
-        ARGOCD_AUTH_TOKEN: ${{ inputs.argo-token }}
-      shell: bash
     - run:  |
         curl https://$ARGOCD_SERVER/api/v1/applications/${{ inputs.app-name }}/sync -H "Authorization: Bearer $ARGOCD_AUTH_TOKEN" -X POST
       if: ${{ inputs.type == 'app' }}

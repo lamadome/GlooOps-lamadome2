@@ -2,19 +2,18 @@ name: Argo Push
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - teams/platform/workspaces/**.yaml
   pull_request:
     branches: [ "main" ]
-
-
   workflow_dispatch:
-
 jobs:
   argo-app-sync:
     runs-on: ubuntu-latest  # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/install-argo
+      #- uses: ./.github/actions/install-argo
       - uses: ./.github/actions/argo-sync-app
         with:
           app-name: workspaces-app
