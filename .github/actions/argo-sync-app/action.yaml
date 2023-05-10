@@ -28,3 +28,4 @@ runs:
       env:
           ARGOCD_SERVER: ${{ inputs.argo-url }}
           ARGOCD_AUTH_TOKEN: ${{ inputs.argo-token }}
+      shell: bash
