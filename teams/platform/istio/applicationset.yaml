@@ -21,7 +21,7 @@ spec:
     spec:
       project: gloo-mesh
       source:
-        repoURL: 'https://github.com/lamadome/GlooOps-lamadome'
+        repoURL: 'https://github.com/lamadome/GlooOps-lamadome2'
         targetRevision: HEAD
         path: 'teams/platform/istio/{{name}}'
       destination:

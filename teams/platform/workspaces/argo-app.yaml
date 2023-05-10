@@ -8,15 +8,13 @@ metadata:
 spec:
   project: gloo-mesh
   source:
-    repoURL: https://github.com/lamadome/GlooOps-lamadome
+    repoURL: https://github.com/lamadome/GlooOps-lamadome2
     targetRevision: main
     path: teams/platform/workspaces/base
   destination:
-    name: mgmt
+    name: in-cluster
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    automated: null
     retry:
       limit: 2
       backoff:
