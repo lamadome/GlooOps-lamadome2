@@ -21,7 +21,7 @@ spec:
       project: gloo-mesh
       source:
         path: teams/platform/gloo-mesh-agent/{{name}}
-        repoURL: 'https://github.com/lamadome/GlooOps-lamadome'
+        repoURL: 'https://github.com/lamadome/GlooOps-lamadome2'
         targetRevision: HEAD
       destination:
         name: '{{cluster}}'
