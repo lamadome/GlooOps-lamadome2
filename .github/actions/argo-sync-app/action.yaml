@@ -23,7 +23,7 @@ runs:
         ARGOCD_AUTH_TOKEN: ${{ inputs.argo-token }}
       shell: bash
     - run:  |
-        curl $ARGOCD_SERVER/api/v1/applications/${{ inputs.app-name }}/sync -H "Authorization: Bearer $ARGOCD_AUTH_TOKEN"
+        curl https://$ARGOCD_SERVER/api/v1/applications/${{ inputs.app-name }}/sync -H "Authorization: Bearer $ARGOCD_AUTH_TOKEN"
       if: ${{ inputs.type == 'app' }}
       env:
           ARGOCD_SERVER: ${{ inputs.argo-url }}
