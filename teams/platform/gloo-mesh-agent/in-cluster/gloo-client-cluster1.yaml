@@ -22,7 +22,7 @@ spec:
       chart: gloo-mesh-agent
       helm:
         valueFiles:
-            - $myRepo/teams/platform/gloo-mesh-agent/mgmt/values-cluster1.yaml
+            - $myRepo/teams/platform/gloo-mesh-agent/in-cluster/values-cluster1.yaml
   project: gloo-mesh
   syncPolicy:
     syncOptions:

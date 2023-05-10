@@ -2,12 +2,18 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: gloo-agent
-  namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   generators:
-  - clusters: {}
+  - list:
+      elements:
+      - name: cluster1
+        cluster: cluster1
+      - name: cluster2
+        cluster: cluster2
+      - name: mgmt
+        cluster: in-cluster
   template:
     metadata:
       name: 'gloo-agent-{{name}}'
@@ -18,6 +24,6 @@ spec:
         repoURL: 'https://github.com/lamadome/GlooOps-lamadome'
         targetRevision: HEAD
       destination:
-        name: '{{name}}'
+        name: '{{cluster}}'
       syncPolicy:
         automated: {}
