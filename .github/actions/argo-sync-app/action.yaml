@@ -10,10 +10,14 @@ inputs:
   argo-url:
     description: 'Argo url'
     required: true
+  type:
+    description: 'Type of App or Appset'
+    required: true
 runs:
   using: "composite"
   steps:
     - run: argocd app sync ${{ inputs.app-name }} --grpc-web
+      if: ${{ inputs.type == 'app' }}
       env:
         ARGOCD_SERVER: ${{ inputs.argo-url }}
         ARGOCD_AUTH_TOKEN: ${{ inputs.argo-token }}
