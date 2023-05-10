@@ -10,9 +10,9 @@ spec:
   source:
     repoURL: https://github.com/lamadome/GlooOps-lamadome2
     targetRevision: main
-    path: teams/platform/workspaces/base
+    path: teams/platform/workspaces/mgmt
   destination:
-    name: in-cluster
+    name: cluster1
   syncPolicy:
     automated: null
     retry:
