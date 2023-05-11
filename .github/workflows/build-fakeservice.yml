@@ -117,5 +117,23 @@ jobs:
             . \
             --push
 
-      
+  update-deployment:
+    name: Update K8s deployment manifests
+    runs-on: ubuntu-latest
+    needs: release
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
 
+      - name: Update fake-service Deployment YAML
+        run: |
+          cd teams/fake-service
+          kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
+
+      - name: Commit back any changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit -m "Set image tag to ${GITHUB_SHA}" teams/fake-service/*.yaml || true
+          git push
