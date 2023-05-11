@@ -15,7 +15,7 @@ jobs:
 
       - name: Build
         run: |
-          make build_ui
+          (cd teams/bookinfo/fake-service; make build_ui)
 
       - uses: actions/upload-artifact@v2
         with:
