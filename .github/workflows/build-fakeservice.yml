@@ -15,7 +15,8 @@ jobs:
 
       - name: Build
         run: |
-          (cd teams/bookinfo/fake-service; make build_ui)
+          cd teams/bookinfo/fake-service
+          make build_ui
 
       - uses: actions/upload-artifact@v2
         with:
@@ -42,18 +43,21 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: ui
-          path: ui/build
+          path: ./teams/bookinfo/fake-service/ui/build
 
       - name: Get dependencies
         run: |
-          go get -v -t ./teams/bookinfo/fake-service/
+          cd teams/bookinfo/fake-service
+          go get -v -t ./...
 
       - name: Unit Test
         run: |
-          go test -v ./teams/bookinfo/fake-service/
+          cd teams/bookinfo/fake-service
+          go test -v ./...
 
       - name: Build
         run: |
+          cd teams/bookinfo/fake-service
           CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/linux/amd64/fake-service
           CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o bin/linux/arm64/fake-service
           CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=6 go build -o bin/linux/arm6/fake-service
@@ -66,7 +70,7 @@ jobs:
         with:
           name: binaries
           path: |
-            ./bin
+            ./teams/bookinfo/fake-service/bin
 
   release:
     env:
@@ -92,6 +96,7 @@ jobs:
 
       - name: Setup Docker Multi-Arch Builder
         run: |
+          cd teams/bookinfo/fake-service
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
           docker buildx create --name multi
           docker buildx use multi
@@ -99,6 +104,7 @@ jobs:
 
       - name: Build and push Docker
         run: |
+          cd teams/bookinfo/fake-service
           docker buildx build --platform linux/arm64,linux/amd64 \
             -t lamadome/fake-service:${GITHUB_REF##*/} \
             -f ./teams/bookinfo/fake-service/Dockerfile \
@@ -107,6 +113,7 @@ jobs:
 
       - name: Build and push Docker VM
         run: |
+          cd teams/bookinfo/fake-service
           docker buildx build --platform linux/arm64,linux/amd64 \
             -t lamadome/fake-service:vm-${GITHUB_REF##*/} \
             -f ./teams/bookinfo/fake-service/Dockerfile-VM \
