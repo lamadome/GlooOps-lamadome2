@@ -16,7 +16,7 @@ spec:
   syncPolicy:
     automated: null
     retry:
-      limit: 3
+      limit: 2
       backoff:
         duration: 5s
         factor: 2
