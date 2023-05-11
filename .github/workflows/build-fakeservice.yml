@@ -101,7 +101,7 @@ jobs:
           cd ./teams/bookinfo/fake-service
           docker buildx build --platform linux/arm64,linux/amd64 \
             -t lamadome/fake-service:${GITHUB_REF##*/} \
-            -f ./teams/bookinfo/fake-service/Dockerfile \
+            -f Dockerfile \
             ./bin \
             --push
 
@@ -110,7 +110,7 @@ jobs:
           cd ./teams/bookinfo/fake-service
           docker buildx build --platform linux/arm64,linux/amd64 \
             -t lamadome/fake-service:vm-${GITHUB_REF##*/} \
-            -f ./teams/bookinfo/fake-service/Dockerfile-VM \
+            -f Dockerfile-VM \
             . \
             --push
 
