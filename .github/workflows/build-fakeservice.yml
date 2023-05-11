@@ -128,9 +128,10 @@ jobs:
 
       - name: Update fake-service Deployment YAML
         run: |
-          cd teams/fake-service
+          cd ./teams/fake-service/cluster1
           kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
-
+          cd ../cluster2
+          kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
       - name: Commit back any changes
         run: |
           git config user.name github-actions

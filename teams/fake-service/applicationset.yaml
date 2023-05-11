@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: fake-service-appset
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  generators:
+  - List:
+      elements:
+      - Name: frontend
+        cluster: cluster1
+      - Name: backend
+        cluster: cluster2
+  template:
+    metadata:
+      name: 'bookinfo-{{name}}'
+    spec:
+      project: bookinfo
+      source:
+        repoURL: 'https://github.com/lamadome/GlooOps-lamadome'
+        targetRevision: main
+        path: teams/bookinfo/{{name}}
+      destination:
+        name: '{{cluster}}'
+      syncPolicy: null
