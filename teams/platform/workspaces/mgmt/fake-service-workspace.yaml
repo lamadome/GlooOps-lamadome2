@@ -9,9 +9,7 @@ spec:
   workloadClusters:
   - name: cluster1
     namespaces:
-    - name: bookinfo-frontends
-    - name: bookinfo-backends
+    - name: fake-frontend
   - name: cluster2
     namespaces:
-    - name: bookinfo-frontends
-    - name: bookinfo-backends
+    - name: fake-backend
