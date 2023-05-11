@@ -15,14 +15,14 @@ jobs:
 
       - name: Build
         run: |
-          cd teams/bookinfo/fake-service
+          cd ./teams/fake-service/src
           make build_ui
 
       - uses: actions/upload-artifact@v2
         with:
           name: ui
           path: |
-            ./teams/bookinfo/fake-service/ui/build
+            ./teams/fake-service/src/ui/build
 
   build:
     env:
@@ -43,16 +43,16 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: ui
-          path: ./teams/bookinfo/fake-service/ui/build
+          path: ./teams/fake-service/src/ui/build
 
       - name: Get dependencies
         run: |
-          cd teams/bookinfo/fake-service
+          cd ./teams/fake-service/src
           go get -v -t ./...
 
       - name: Build
         run: |
-          cd teams/bookinfo/fake-service
+          cd ./teams/fake-service/src
           CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/linux/amd64/fake-service
           CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o bin/linux/arm64/fake-service
           CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=6 go build -o bin/linux/arm6/fake-service
@@ -65,7 +65,7 @@ jobs:
         with:
           name: binaries
           path: |
-            ./teams/bookinfo/fake-service/bin
+            ./teams/fake-service/src/bin
 
   release:
     env:
@@ -81,7 +81,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: binaries
-          path: ./teams/bookinfo/fake-service/bin
+          path: ./teams/fake-service/src/bin
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -91,7 +91,7 @@ jobs:
 
       - name: Setup Docker Multi-Arch Builder
         run: |
-          cd ./teams/bookinfo/fake-service
+          cd ./teams/fake-service/src
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
           docker buildx create --name multi
           docker buildx use multi
@@ -99,7 +99,7 @@ jobs:
 
       - name: Build and push Docker
         run: |
-          cd ./teams/bookinfo/fake-service
+          cd ./teams/fake-service/src
           docker buildx build --platform linux/arm64,linux/amd64 \
             -t lamadome/fake-service:${GITHUB_SHA} \
             -f Dockerfile \
@@ -110,7 +110,7 @@ jobs:
 
       - name: Build and push Docker VM
         run: |
-          cd ./teams/bookinfo/fake-service
+          cd ./teams/fake-service/src
           docker buildx build --platform linux/arm64,linux/amd64 \
             -t lamadome/fake-service:vm-${GITHUB_REF##*/} \
             -f Dockerfile-VM \

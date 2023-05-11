@@ -64,7 +64,7 @@ const NodeInnerCustom = ({ node, children, ...otherProps }) => {
       </Row>
       <Row>
         <Col className="Node-click">
-          <a href="#" onClick={() => descriptionClicked(node.properties.body)}>click here for description</a>
+          <a href="GlooOps-lamadome2/teams/fake-service/src/ui/src#" onClick={() => descriptionClicked(node.properties.body)}>click here for description</a>
         </Col>
       </Row>
     </Container>
