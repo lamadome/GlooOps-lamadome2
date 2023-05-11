@@ -1,0 +1,117 @@
+---
+
+name: Build
+on: [push]
+
+jobs:
+  ui:
+    env:
+      GONOSUMDB: "github.com/moby/moby"
+    name: Build UI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: |
+          make build_ui
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ui
+          path: |
+            ./teams/bookinfo/fake-service/ui/build
+
+  build:
+    env:
+      GONOSUMDB: "github.com/moby/moby"
+      GO111MODULE: "on"
+    name: Build Application
+    runs-on: ubuntu-latest
+    needs: ui
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.19
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: ui
+          path: ui/build
+
+      - name: Get dependencies
+        run: |
+          go get -v -t ./teams/bookinfo/fake-service/...
+
+      - name: Unit Test
+        run: |
+          go test -v ./teams/bookinfo/fake-service/...
+
+      - name: Build
+        run: |
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/linux/amd64/fake-service
+          CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o bin/linux/arm64/fake-service
+          CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=6 go build -o bin/linux/arm6/fake-service
+          CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o bin/linux/arm7/fake-service
+          CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o bin/darwin/amd64/fake-service
+          CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o bin/darwin/arm64/fake-service
+          CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o bin/windows/fake-service.exe
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: binaries
+          path: |
+            ./bin
+
+  release:
+    env:
+      GONOSUMDB: "github.com/moby/moby"
+
+    name: Release Application
+    needs: build
+    runs-on: ubuntu-latest
+    if: contains(github.ref, 'dev') || contains(github.ref, 'v')
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: binaries
+          path: bin
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Setup Docker Multi-Arch Builder
+        run: |
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+          docker buildx create --name multi
+          docker buildx use multi
+          docker buildx inspect --bootstrap
+
+      - name: Build and push Docker
+        run: |
+          docker buildx build --platform linux/arm64,linux/amd64 \
+            -t lamadome/fake-service:${GITHUB_REF##*/} \
+            -f ./teams/bookinfo/fake-service/Dockerfile \
+            ./bin \
+            --push
+
+      - name: Build and push Docker VM
+        run: |
+          docker buildx build --platform linux/arm64,linux/amd64 \
+            -t lamadome/fake-service:vm-${GITHUB_REF##*/} \
+            -f ./teams/bookinfo/fake-service/Dockerfile-VM \
+            . \
+            --push
+
+      
+
