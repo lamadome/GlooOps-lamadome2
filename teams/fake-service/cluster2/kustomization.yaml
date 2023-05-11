@@ -4,4 +4,4 @@ resources:
 - backend.yaml
 images:
 - name: lamadome/fake-service
-  newTag: e94b23c69b3d6299f658ed3067ba02022f8a4119
+  newTag: f997ebf85ea5283691e7a89f759c074e08fefc65
