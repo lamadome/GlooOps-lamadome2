@@ -1,0 +1,41 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 5vmin;
+  margin-right: 10px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.App-header-text {
+  font-size: calc(3vmin);
+}
+
+.Node-click {
+  padding-top: 20px;
+}
+
+.form-custom {
+  padding-left: 20px;
+  padding-top: 12px;
+  flex-grow: 1;
+}
+
+.form-label {
+  font-weight: bold;
+}

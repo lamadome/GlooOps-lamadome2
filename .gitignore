@@ -1,2 +1,5 @@
+bin
+.vscode
+.idea
 
 argocd-darwin-arm64

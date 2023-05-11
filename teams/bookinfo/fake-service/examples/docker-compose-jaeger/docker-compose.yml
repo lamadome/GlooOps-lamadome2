@@ -1,0 +1,87 @@
+---
+
+version: "3.3"
+services:
+
+  web:
+    image: nicholasjackson/fake-service:v0.23.1
+    environment:
+      LISTEN_ADDR: 0.0.0.0:9090
+      UPSTREAM_URIS: "http://api:9090"
+      MESSAGE: "Hello World"
+      NAME: "web"
+      SERVER_TYPE: "http"
+      TIMING_50_PERCENTILE: 30ms
+      TIMING_90_PERCENTILE: 60ms
+      TIMING_99_PERCENTILE: 90ms
+      TIMING_VARIANCE: 10
+      TRACING_ZIPKIN: "http://jaeger:9411"
+    ports:
+    - "9090:9090"
+
+  api:
+    image: nicholasjackson/fake-service:v0.23.1
+    environment:
+      LISTEN_ADDR: 0.0.0.0:9090
+      UPSTREAM_URIS: "grpc://currency:9090, http://cache:9090/abc/123123, http://payments:9090"
+      UPSTREAM_WORKERS: 2
+      MESSAGE: "API response"
+      NAME: "api"
+      SERVER_TYPE: "http"
+      TIMING_50_PERCENTILE: 20ms
+      TIMING_90_PERCENTILE: 30ms
+      TIMING_99_PERCENTILE: 40ms
+      TIMING_VARIANCE: 10
+      HTTP_CLIENT_APPEND_REQUEST: "true"
+      TRACING_ZIPKIN: "http://jaeger:9411"
+
+  cache:
+    image: nicholasjackson/fake-service:v0.23.1
+    environment:
+      LISTEN_ADDR: 0.0.0.0:9090
+      MESSAGE: "Cache response"
+      NAME: "cache"
+      SERVER_TYPE: "http"
+      TIMING_50_PERCENTILE: 1ms
+      TIMING_90_PERCENTILE: 2ms
+      TIMING_99_PERCENTILE: 3ms
+      TIMING_VARIANCE: 10
+      TRACING_ZIPKIN: "http://jaeger:9411"
+
+  payments:
+    image: nicholasjackson/fake-service:v0.23.1
+    environment:
+      LISTEN_ADDR: 0.0.0.0:9090
+      UPSTREAM_URIS: "grpc://currency:9090"
+      MESSAGE: "Payments response"
+      NAME: "payments"
+      SERVER_TYPE: "http"
+      TRACING_ZIPKIN: "http://jaeger:9411"
+      HTTP_CLIENT_APPEND_REQUEST: "true"
+
+  # Will throw errors for 20% of all requests
+  currency:
+    image: nicholasjackson/fake-service:v0.23.1
+    environment:
+      LISTEN_ADDR: 0.0.0.0:9090
+      MESSAGE: "Currency response"
+      NAME: "currency"
+      SERVER_TYPE: "grpc"
+      ERROR_RATE: 0.2
+      ERROR_CODE: 14
+      ERROR_TYPE: "http_error"
+      TRACING_ZIPKIN: "http://jaeger:9411"
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.32
+    environment:
+      COLLECTOR_ZIPKIN_HOST_PORT: ":9411"
+    ports:
+    - "5775:5775/udp"
+    - "6831:6831/udp"
+    - "6832:6832/udp"
+    - "5778:5778"
+    - "16686:16686"
+    - "14268:14268"
+    - "14250:14250"
+    - "9411:9411"
