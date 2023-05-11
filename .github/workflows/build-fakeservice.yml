@@ -79,7 +79,6 @@ jobs:
     name: Release Application
     needs: build
     runs-on: ubuntu-latest
-    if: contains(github.ref, 'dev') || contains(github.ref, 'v')
     steps:
       - uses: actions/checkout@v2
 
