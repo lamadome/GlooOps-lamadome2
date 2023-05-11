@@ -71,7 +71,7 @@ jobs:
     env:
       GONOSUMDB: "github.com/moby/moby"
     outputs:
-      digest: ${{ steps.digest.outputs.digest }}
+      sha: ${{ steps.digest.outputs.digest }}
     name: Release Application
     needs: build
     runs-on: ubuntu-latest
@@ -101,13 +101,12 @@ jobs:
         run: |
           cd ./teams/bookinfo/fake-service
           docker buildx build --platform linux/arm64,linux/amd64 \
-            -t lamadome/fake-service:${GITHUB_REF##*/} \
+            -t lamadome/fake-service:${GITHUB_SHA} \
             -f Dockerfile \
             ./bin \
             --push
-          digest=$(docker inspect --format='{{index .RepoDigests 0}}' lamadome/fake-service:${GITHUB_REF##*/})
-          echo "Outputting digest: $digest
-          echo "digest=$digest" >> $GITHUB_OUTPUT    
+          echo "Outputting digest: $GITHUB_SHA"
+          echo "sha=$GITHUB_SHA" >> $GITHUB_OUTPUT    
 
       - name: Build and push Docker VM
         run: |
