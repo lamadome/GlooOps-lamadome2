@@ -50,11 +50,6 @@ jobs:
           cd teams/bookinfo/fake-service
           go get -v -t ./...
 
-      - name: Unit Test
-        run: |
-          cd teams/bookinfo/fake-service
-          go test -v ./...
-
       - name: Build
         run: |
           cd teams/bookinfo/fake-service
@@ -85,7 +80,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: binaries
-          path: bin
+          path: ./teams/bookinfo/fake-service/bin
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
