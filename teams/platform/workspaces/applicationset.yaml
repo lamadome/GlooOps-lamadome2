@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: workspaces-appset
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  generators:
+  - List:
+      elements:
+      - name: cluster1
+        description: gw-ws
+      - name: mgmt
+        description: workspaces
+  template:
+    metadata:
+      name: 'workspace-{{description}}-{{name}}'
+    spec:
+      project: gloo-mesh
+      source:
+        repoURL: 'https://github.com/lamadome/GlooOps-lamadome2'
+        targetRevision: main
+        path: teams/platform/workspaces/{{name}}
+      destination:
+        name: '{{name}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
