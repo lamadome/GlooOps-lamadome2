@@ -30,3 +30,4 @@ spec:
         namespace: gloo-mesh
       syncPolicy:
         automated: {}
+#test
