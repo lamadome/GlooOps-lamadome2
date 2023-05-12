@@ -33,7 +33,7 @@ spec:
     name: 'mgmt'
     namespace: gloo-mesh
   sources:
-    - repoURL:  https://github.com/lamadome/GlooOps-lamadome
+    - repoURL:  https://github.com/lamadome/GlooOps-lamadome2
       targetRevision: HEAD
       ref: myRepo
     - repoURL: 'https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-enterprise'

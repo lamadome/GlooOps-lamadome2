@@ -12,8 +12,10 @@ spec:
         cluster: cluster1
       - name: cluster2
         cluster: cluster2
-      - name: mgmt
+      - name: in-cluster
         cluster: in-cluster
+      - name: mgmt
+        cluster: mgmt
   template:
     metadata:
       name: 'gloo-agent-{{name}}'
@@ -25,5 +27,8 @@ spec:
         targetRevision: HEAD
       destination:
         name: '{{cluster}}'
+        namespace: gloo-mesh
       syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
         automated: {}

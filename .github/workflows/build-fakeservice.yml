@@ -1,8 +1,11 @@
 ---
 
 name: Build
-on: [push]
-
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - teams/fake-service/**
 jobs:
   ui:
     env:

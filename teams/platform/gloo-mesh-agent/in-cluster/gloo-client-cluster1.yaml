@@ -26,7 +26,6 @@ spec:
   project: gloo-mesh
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true
       - RespectIgnoreDifferences=true
     automated:
       prune: false
