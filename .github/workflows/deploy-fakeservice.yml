@@ -1,0 +1,26 @@
+---
+name: Deploy fake-service
+on:
+  push:
+    branches: [ "main" , "argo-commit-pinning" ]
+    paths:
+    - "teams/fake-service/**"
+    - "!teams/fake-service/src/**"
+jobs:
+  sync-argocd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: notify-argo
+        run: |
+          curl https://${{ secrets.ARGOCD_SERVER }}/api/v1/applications/fake-service-frontend/sync \
+            -X POST \
+            -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
+            -H 'Content-Type: application/json' \
+            -d '{"revision": "'$GITHUB_SHA'", "dryRun": true}'
+          curl https://${{ secrets.ARGOCD_SERVER }}/api/v1/applications/fake-service-backend/sync \
+            -X POST \
+            -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
+            -H 'Content-Type: application/json' \
+            -d '{"revision": "'$GITHUB_SHA'", "dryRun": true}'

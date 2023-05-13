@@ -1,6 +1,5 @@
 ---
-
-name: Build
+name: Build and Publish fake-service
 on:
   push:
     branches: [ "main" , "argo-commit-pinning" ]
