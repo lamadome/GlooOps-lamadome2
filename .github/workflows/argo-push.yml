@@ -3,7 +3,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - teams/platform/workspaces/**.yaml
+      - teams/fake-service/src/**
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
