@@ -2,6 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - frontend.yaml
+- routetable-fake-frontend.yaml
+- fake-service-workspace-settings.yaml
 images:
 - name: lamadome/fake-service
   newTag: latest
