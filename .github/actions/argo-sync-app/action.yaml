@@ -13,11 +13,18 @@ inputs:
   type:
     description: 'Type of App or Appset'
     required: true
+  revision:
+    description: 'Commit SHA of the app'
+    required: true
 runs:
   using: "composite"
   steps:
     - run:  |
-        curl https://$ARGOCD_SERVER/api/v1/applications/${{ inputs.app-name }}/sync -H "Authorization: Bearer $ARGOCD_AUTH_TOKEN" -X POST
+        curl https://$ARGOCD_SERVER/api/v1/applications/${{ inputs.app-name }}/sync \
+          -X POST \
+          -H "Authorization: Bearer $ARGOCD_AUTH_TOKEN" \
+          -H 'Content-Type: application/json' \
+          -d '{"revision": "'${{ inputs.revision }}'"}'
       if: ${{ inputs.type == 'app' }}
       env:
           ARGOCD_SERVER: ${{ inputs.argo-url }}
