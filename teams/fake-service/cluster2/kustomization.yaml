@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
 - backend.yaml
 - virtualdestination-fake-backend.yaml
+#Images to be patched
 images:
 - name: lamadome/fake-service
   newTag: 519ed3d01867b9fac46b165b731a44f2ffa4e51c
