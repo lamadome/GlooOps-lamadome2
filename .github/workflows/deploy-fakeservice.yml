@@ -14,6 +14,11 @@ jobs:
 
       - name: notify-argo
         run: |
+          curl https://${{ secrets.ARGOCD_SERVER }}/api/v1/applications/fake-service-frontend \
+            -X GET \
+            -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
+            -H 'Content-Type: application/json' \
+            -d '{"refresh": true}'
           curl https://${{ secrets.ARGOCD_SERVER }}/api/v1/applications/fake-service-frontend/sync \
             -X POST \
             -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
