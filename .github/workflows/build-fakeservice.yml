@@ -5,7 +5,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - teams/fake-service/**
+      - teams/fake-service/src/**
 jobs:
   ui:
     env:
