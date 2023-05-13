@@ -42,37 +42,41 @@ EOF
 
 git add .
 git commit -m "add tls and token secret"
-#
-#rm ca.crt
-#rm token
-#
-#export ENDPOINT_GLOO_MESH=$(kubectl --context ${MGMT} -n gloo-mesh get svc gloo-mesh-mgmt-server -o jsonpath='{.status.loadBalancer.ingress[0].*}'):9900
-#export HOST_GLOO_MESH=$(echo ${ENDPOINT_GLOO_MESH} | cut -d: -f1)
-#export GLOO_MESH_UI=http://$(kubectl --context ${MGMT} -n gloo-mesh get svc gloo-mesh-ui -o jsonpath='{.status.loadBalancer.ingress[0].*}'):8090
-#
-#cat <<EOF > $DIR/teams/platform/gloo-mesh-agent/mgmt/values-cluster1.yaml
-#relay:
-#  serverAddress: ${ENDPOINT_GLOO_MESH}
-#  authority: gloo-mesh-mgmt-server.gloo-mesh
-#rate-limiter:
-#  enabled: false
-#ext-auth-service:
-#  enabled: false
-#cluster: cluster1
-#EOF
-#
-#cat <<EOF > $DIR/teams/platform/gloo-mesh-agent/mgmt/values-cluster2.yaml
-#relay:
-#  serverAddress: ${ENDPOINT_GLOO_MESH}
-#  authority: gloo-mesh-mgmt-server.gloo-mesh
-#rate-limiter:
-#  enabled: false
-#ext-auth-service:
-#  enabled: false
-#cluster: cluster1
-#EOF
-#
-#
-#argocd appset create "$DIR/teams/platform/gloo-mesh-agent/gloo-agents-app.yaml"
-#argocd appset create "$DIR/steams/platform/istio/applicationset.yaml"
+git push
+
+rm ca.crt
+rm token
+
+export ENDPOINT_GLOO_MESH=$(kubectl --context ${MGMT} -n gloo-mesh get svc gloo-mesh-mgmt-server -o jsonpath='{.status.loadBalancer.ingress[0].*}'):9900
+export HOST_GLOO_MESH=$(echo ${ENDPOINT_GLOO_MESH} | cut -d: -f1)
+export GLOO_MESH_UI=http://$(kubectl --context ${MGMT} -n gloo-mesh get svc gloo-mesh-ui -o jsonpath='{.status.loadBalancer.ingress[0].*}'):8090
+
+cat <<EOF > $DIR/teams/platform/gloo-mesh-agent/mgmt/values-cluster1.yaml
+relay:
+  serverAddress: ${ENDPOINT_GLOO_MESH}
+  authority: gloo-mesh-mgmt-server.gloo-mesh
+rate-limiter:
+  enabled: false
+ext-auth-service:
+  enabled: false
+cluster: cluster1
+EOF
+
+cat <<EOF > $DIR/teams/platform/gloo-mesh-agent/mgmt/values-cluster2.yaml
+relay:
+  serverAddress: ${ENDPOINT_GLOO_MESH}
+  authority: gloo-mesh-mgmt-server.gloo-mesh
+rate-limiter:
+  enabled: false
+ext-auth-service:
+  enabled: false
+cluster: cluster1
+EOF
+
+git add .
+git commit -m "update relay address"
+git push
+
+argocd appset create "$DIR/teams/platform/gloo-mesh-agent/gloo-agents-app.yaml"
+argocd appset create "$DIR/steams/platform/istio/applicationset.yaml"
 
