@@ -3,7 +3,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - teams/fake-service/src/**
+      - teams/fake-services/src/**
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
