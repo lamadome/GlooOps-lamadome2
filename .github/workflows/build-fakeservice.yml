@@ -3,7 +3,7 @@
 name: Build
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" , "argo-commit-pinning" ]
     paths:
       - teams/fake-service/src/**
 jobs:
