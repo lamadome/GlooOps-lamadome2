@@ -14,7 +14,7 @@ spec:
     spec:
       project: bookinfo
       source:
-        repoURL: 'https://github.com/lamadome/GlooOps-lamadome'
+        repoURL: 'https://github.com/lamadome/GlooOps-lamadome2'
         targetRevision: main
         path: teams/bookinfo/{{name}}
       destination:

@@ -15,13 +15,20 @@ spec:
         cluster: cluster2
   template:
     metadata:
-      name: 'bookinfo-{{name}}'
+      name: 'fake-service-{{name}}'
     spec:
       project: bookinfo
       source:
-        repoURL: 'https://github.com/lamadome/GlooOps-lamadome'
+        repoURL: 'https://github.com/lamadome/GlooOps-lamadome2'
         targetRevision: main
-        path: teams/bookinfo/{{name}}
+        path: teams/fake-service/{{name}}
       destination:
         name: '{{cluster}}'
-      syncPolicy: null
+        namespace: fake-{{name}}
+      syncPolicy:
+        automated: null
+        managedNamespaceMetadata:
+          labels:
+            istio.io/rev: 1-17
+        syncOptions:
+        - CreateNamespace=true

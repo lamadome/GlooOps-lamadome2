@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: frontend
+  namespace: fake-frontend
 spec:
   replicas: 1
   selector:
@@ -22,7 +22,7 @@ spec:
             - name: NAME
               value: "frontend"
             - name: UPSTREAM
-              value: "http://backend.backend:8080"
+              value: "http://fake-backend.global:9090"
           ports:
             - containerPort: 8080
 

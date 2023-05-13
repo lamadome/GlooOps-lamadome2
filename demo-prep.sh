@@ -78,5 +78,46 @@ git commit -m "update relay address"
 git push
 
 argocd appset create "$DIR/teams/platform/gloo-mesh-agent/gloo-agents-app.yaml"
+
+kubectl --context ${CLUSTER1} -n gloo-mesh rollout status deploy/gloo-mesh-agent
+kubectl --context ${CLUSTER2} -n gloo-mesh rollout status deploy/gloo-mesh-agent
+
 argocd appset create "$DIR/teams/platform/istio/applicationset.yaml"
+
+until [[ $(kubectl --context ${CLUSTER1} -n istio-system get deploy -o json | jq '[.items[].status.readyReplicas] | add') -ge 1 ]]; do
+  sleep 1
+done
+until [[ $(kubectl --context ${CLUSTER1} -n istio-gateways get deploy -o json | jq '[.items[].status.readyReplicas] | add') -eq 2 ]]; do
+  sleep 1
+done
+p "done"
+kubectl --context ${CLUSTER1} -n istio-gateways get pods
+kubectl --context ${CLUSTER1} -n istio-system get pods
+
+p "Checking istio install on cluster1"
+until [[ $(kubectl --context ${CLUSTER2} -n istio-system get deploy -o json | jq '[.items[].status.readyReplicas] | add') -ge 1 ]]; do
+  sleep 1
+done
+until [[ $(kubectl --context ${CLUSTER2} -n istio-gateways get deploy -o json | jq '[.items[].status.readyReplicas] | add') -eq 2 ]]; do
+  sleep 1
+done
+p "done"
+
+kubectl --context ${CLUSTER2} -n istio-gateways get pods
+kubectl --context ${CLUSTER2} -n istio-system get pods
+
+export ENDPOINT_HTTP_GW_CLUSTER1=$(kubectl --context ${CLUSTER1} -n istio-gateways get svc -l istio=ingressgateway -o jsonpath='{.items[0].status.loadBalancer.ingress[0].*}'):80
+export ENDPOINT_HTTPS_GW_CLUSTER1=$(kubectl --context ${CLUSTER1} -n istio-gateways get svc -l istio=ingressgateway -o jsonpath='{.items[0].status.loadBalancer.ingress[0].*}'):443
+export HOST_GW_CLUSTER1=$(echo ${ENDPOINT_HTTP_GW_CLUSTER1} | cut -d: -f1)
+export ENDPOINT_HTTP_GW_CLUSTER2=$(kubectl --context ${CLUSTER2} -n istio-gateways get svc -l istio=ingressgateway -o jsonpath='{.items[0].status.loadBalancer.ingress[0].*}'):80
+export ENDPOINT_HTTPS_GW_CLUSTER2=$(kubectl --context ${CLUSTER2} -n istio-gateways get svc -l istio=ingressgateway -o jsonpath='{.items[0].status.loadBalancer.ingress[0].*}'):443
+export HOST_GW_CLUSTER2=$(echo ${ENDPOINT_HTTP_GW_CLUSTER2} | cut -d: -f1)
+
+#Create the workspaces appset
+argocd appset create "$DIR/teams/platform/workspaces/applicationset.yaml"
+
+argocd appset create "$DIR/teams/gateways/argo-app.yaml"
+
+kubectl --context ${CLUSTER1} create ns fake-frontend
+kubectl --context ${CLUSTER1} create ns fake-backend
 
