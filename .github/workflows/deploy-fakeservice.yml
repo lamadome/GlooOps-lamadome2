@@ -2,6 +2,7 @@
 name: Deploy fake-service
 on:
   push:
+    branches: [ "main" , "argo-commit-pinning" ]
     paths:
     - "teams/fake-service/**/*.?(yml|yaml)"
     - "!teams/fake-service/src/**"
