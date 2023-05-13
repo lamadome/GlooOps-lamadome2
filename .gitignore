@@ -3,3 +3,4 @@ bin
 .idea
 
 argocd-darwin-arm64
+demo-prep.sh

@@ -2,9 +2,9 @@
 name: Build and Publish fake-service
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" , "argo-commit-pinning" ]
     paths:
-      - teams/fake-service/**
+      - teams/fake-service/src/**
 jobs:
   ui:
     env:

@@ -16,7 +16,13 @@ jobs:
       #- uses: ./.github/actions/install-argo
       - uses: ./.github/actions/argo-sync-app
         with:
-          app-name: workspaces-app
+          app-name: fake-service-frontend
+          argo-token: ${{ secrets.ARGOCD_TOKEN }}
+          argo-url: ${{ secrets.ARGOCD_SERVER }}
+          type: app
+      - uses: ./.github/actions/argo-sync-app
+        with:
+          app-name: fake-service-backend
           argo-token: ${{ secrets.ARGOCD_TOKEN }}
           argo-url: ${{ secrets.ARGOCD_SERVER }}
           type: app

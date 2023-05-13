@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - backend.yaml
+- virtualdestination-fake-backend.yaml
 images:
 - name: lamadome/fake-service
-  newTag: 2a2ea89ff173fa0e43bffe92c1d61e4f83714637
+  newTag: main
