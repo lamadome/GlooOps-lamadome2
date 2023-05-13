@@ -5,8 +5,8 @@ on:
     branches: [ "main" , "argo-commit-pinning" ]
     paths:
     - "teams/fake-service/**/*.?(yml|yaml)"
-    - "!teams/fake-service/src/**"
-
+    paths-ignore:
+    - "teams/fake-service/src/**"
 jobs:
   sync-argocd:
     runs-on: ubuntu-latest
