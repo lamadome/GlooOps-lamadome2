@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: frontend
   namespace: fake-frontend
+  labels:
+    app: frontend
 spec:
   replicas: 1
   selector:
@@ -32,6 +34,8 @@ kind: Service
 metadata:
   name: frontend
   namespace: fake-frontend
+  labels:
+    app: frontend
 spec:
   selector:
     app: frontend

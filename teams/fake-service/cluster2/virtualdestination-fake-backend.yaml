@@ -1,7 +1,7 @@
 apiVersion: networking.gloo.solo.io/v2
 kind: VirtualDestination
 metadata:
-  name: fake-bakend
+  name: fake-backend
   namespace: fake-backend
   labels:
     expose: "true"
