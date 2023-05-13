@@ -33,7 +33,7 @@ metadata:
   name: backend
   namespace: fake-backend
   labels:
-    app: productpage
+    app: backend
 spec:
   selector:
     app: backend
