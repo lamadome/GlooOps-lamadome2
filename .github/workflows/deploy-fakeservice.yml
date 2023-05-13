@@ -18,9 +18,9 @@ jobs:
             -X POST \
             -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
             -H 'Content-Type: application/json' \
-            -d '{"revision": "$GITHUB_SHA", "dryRun": true}'
+            -d '{"revision": $GITHUB_SHA, "dryRun": true}'
           curl https://${{ secrets.ARGOCD_SERVER }}/api/v1/applications/fake-service-backend/sync \
             -X POST \
             -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
             -H 'Content-Type: application/json' \
-            -d '{"revision": "$GITHUB_SHA", "dryRun": true}'
+            -d '{"revision": $GITHUB_SHA, "dryRun": true}'
