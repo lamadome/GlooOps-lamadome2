@@ -78,5 +78,5 @@ git commit -m "update relay address"
 git push
 
 argocd appset create "$DIR/teams/platform/gloo-mesh-agent/gloo-agents-app.yaml"
-argocd appset create "$DIR/steams/platform/istio/applicationset.yaml"
+argocd appset create "$DIR/teams/platform/istio/applicationset.yaml"
 
