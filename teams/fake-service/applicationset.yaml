@@ -9,19 +9,19 @@ spec:
   generators:
   - List:
       elements:
-      - Name: frontend
+      - name: frontend
         cluster: cluster1
-      - Name: backend
+      - name: backend
         cluster: cluster2
   template:
     metadata:
       name: 'fake-service-{{name}}'
     spec:
-      project: bookinfo
+      project: fake-service
       source:
         repoURL: 'https://github.com/lamadome/GlooOps-lamadome2'
         targetRevision: main
-        path: teams/fake-service/{{name}}
+        path: teams/fake-service/{{cluster}}
       destination:
         name: '{{cluster}}'
         namespace: fake-{{name}}
