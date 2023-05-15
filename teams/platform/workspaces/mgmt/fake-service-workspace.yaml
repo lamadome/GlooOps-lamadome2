@@ -10,6 +10,7 @@ spec:
   - name: cluster1
     namespaces:
     - name: fake-frontend
+    - name: fake-backend
   - name: cluster2
     namespaces:
     - name: fake-backend
