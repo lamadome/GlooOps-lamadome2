@@ -110,15 +110,6 @@ jobs:
           echo "Outputting digest: $GITHUB_SHA"
           echo "sha=$GITHUB_SHA" >> $GITHUB_OUTPUT    
 
-      - name: Build and push Docker VM
-        run: |
-          cd ./teams/fake-service/src
-          docker buildx build --platform linux/arm64,linux/amd64 \
-            -t lamadome/fake-service:vm-${GITHUB_REF##*/} \
-            -f Dockerfile-VM \
-            . \
-            --push
-
   update-deployment:
     name: Update K8s deployment manifests
     runs-on: ubuntu-latest
