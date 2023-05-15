@@ -3,9 +3,11 @@ kind: RouteTable
 metadata:
   name: fake-backend
   namespace: fake-frontend
-  labels:
-    expose: "true"
+#  labels:
+#    expose: "true"
 spec:
+  hosts:
+    - backend.fake-backend
   http:
     - name: fake-backend
       matchers:
