@@ -7,7 +7,7 @@ metadata:
     expose: "true"
 spec:
   http:
-    - name: fake-frontend
+    - name: fake-backend
       matchers:
       - uri:
           prefix: /
