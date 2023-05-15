@@ -1,0 +1,21 @@
+apiVersion: networking.gloo.solo.io/v2
+kind: RouteTable
+metadata:
+  name: fake-backend
+  namespace: fake-frontend
+  labels:
+    expose: "true"
+spec:
+  http:
+    - name: fake-frontend
+      matchers:
+      - uri:
+          prefix: /
+      forwardTo:
+        destinations:
+          - ref:
+              name: backend
+              namespace: fake-backend
+            kind: VIRTUAL_SERVICE
+            port:
+              number: 9090

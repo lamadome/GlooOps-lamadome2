@@ -4,6 +4,7 @@ resources:
 - frontend.yaml
 - backend.yaml
 - routetable-fake-frontend.yaml
+- routetable-fake-backend.yaml
 - fake-service-workspace-settings.yaml
 images:
 - name: lamadome/fake-service
