@@ -2,5 +2,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - gateways-workspace.yaml
-- bookinfo-workspace.yaml
+#- bookinfo-workspace.yaml
 - fake-service-workspace.yaml
