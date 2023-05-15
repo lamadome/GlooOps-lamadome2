@@ -7,7 +7,14 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
 spec:
   generators:
-  - clusters: {}
+    - List:
+        elements:
+          - name: cluster1
+            cluster: cluster1
+          - name: cluster2
+            cluster: cluster2
+          - name: mgmt
+            cluster: in-cluster
   template:
     metadata:
       name: 'bookinfo-{{name}}'
@@ -18,7 +25,7 @@ spec:
         targetRevision: main
         path: teams/bookinfo/{{name}}
       destination:
-        name: '{{name}}'
+        name: '{{cluster}}'
       syncPolicy:
         automated:
           prune: false
