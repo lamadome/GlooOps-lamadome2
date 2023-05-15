@@ -25,7 +25,7 @@ spec:
             - name: NAME
               value: "frontend"
             - name: UPSTREAM_URIS
-              value: "http://backend.fake-backend:9090"
+              value: "http://fake-backend.global:9090"
           ports:
             - containerPort: 8080
 
