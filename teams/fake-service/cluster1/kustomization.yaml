@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - frontend.yaml
+- backend.yaml
 - routetable-fake-frontend.yaml
 - fake-service-workspace-settings.yaml
 images:
