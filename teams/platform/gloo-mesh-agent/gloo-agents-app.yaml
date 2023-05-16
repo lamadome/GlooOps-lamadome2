@@ -30,4 +30,6 @@ spec:
         namespace: gloo-mesh
       syncPolicy:
         automated: {}
+        syncOptions:
+        - CreateNamespace=true
 #test
