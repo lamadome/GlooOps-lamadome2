@@ -7,7 +7,7 @@ metadata:
     expose: "true"
 spec:
   hosts:
-  - fake-backend.global
+  - fake-backend-canary.global
   services:
   - namespace: fake-backend
     labels:
