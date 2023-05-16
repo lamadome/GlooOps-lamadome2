@@ -21,6 +21,6 @@ spec:
               namespace: fake-backend
             kind: VIRTUAL_DESTINATION
             subset:
-              version: v2
+              version: v3
             port:
               number: 9090
