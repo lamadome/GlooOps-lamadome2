@@ -11,12 +11,12 @@ spec:
   selector:
     matchLabels:
       app: backend
-      version: stable
+      version: canary
   template:
     metadata:
       labels:
         app: backend
-        version: stable
+        version: canary
     spec:
       containers:
         - name: backend
@@ -25,7 +25,7 @@ spec:
             - name: LISTEN_ADDR
               value: "0.0.0.0:9090"
             - name: NAME
-              value: "backend-cluster1"
+              value: "backend-cluster1-canary"
           ports:
             - containerPort: 9090
 
@@ -37,11 +37,11 @@ metadata:
   namespace: fake-backend
   labels:
     app: backend
-    version: stable
+    version: canary
 spec:
   selector:
     app: backend
-    version: stable
+    version: canary
   ports:
     - protocol: TCP
       port: 9090

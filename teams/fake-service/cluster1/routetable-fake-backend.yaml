@@ -14,7 +14,7 @@ spec:
       labels:
         app: frontend
   http:
-    - name: fake-backend
+    - name: fake-backend-stable
       matchers:
       - uri:
           prefix: /
@@ -25,6 +25,22 @@ spec:
               namespace: fake-backend
             kind: VIRTUAL_DESTINATION
             subset:
-              version: v2
+              version: stable
             port:
               number: 9090
+            weight: 50
+    - name: fake-backend-canary
+      matchers:
+      - uri:
+          prefix: /
+      forwardTo:
+        destinations:
+          - ref:
+              name: backend
+              namespace: fake-backend
+            kind: VIRTUAL_DESTINATION
+            subset:
+              version: canary
+            port:
+              number: 9090
+            weight: 50

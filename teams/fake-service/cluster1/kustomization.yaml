@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
 - frontend.yaml
 - backend.yaml
+- backend-canary.yaml
 - virtualdestination-fake-backend.yaml
 - routetable-fake-frontend.yaml
 - routetable-fake-backend.yaml
