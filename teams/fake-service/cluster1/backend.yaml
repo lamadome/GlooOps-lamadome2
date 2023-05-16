@@ -11,6 +11,7 @@ spec:
   selector:
     matchLabels:
       app: backend
+      version: v2
   template:
     metadata:
       labels:
