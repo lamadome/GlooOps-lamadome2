@@ -12,7 +12,7 @@ spec:
   - namespace: fake-backend
     labels:
       app: backend
-      label: stable
+      version: stable
   ports:
     - number: 9090
       protocol: HTTP
