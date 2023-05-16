@@ -12,6 +12,7 @@ spec:
   - namespace: fake-backend
     labels:
       app: backend
+      version: v2
   ports:
     - number: 9090
       protocol: HTTP
