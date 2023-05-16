@@ -7,6 +7,7 @@ metadata:
 #    expose: "true"
 spec:
   hosts:
+    - backend
     - backend.fake-backend
     - fake-backend.global
   workloadSelectors:
@@ -26,16 +27,16 @@ spec:
           - ref:
               name: backend
               namespace: fake-backend
-            kind: SERVICE
+            kind: VIRTUALDESTINATION
             subset:
               version: stable
             port:
               number: 9090
             weight: 100
           - ref:
-              name: backend
+              name: backend-canary
               namespace: fake-backend
-            kind: SERVICE
+            kind: VIRTUALDESTINATION
             subset:
               version: canary
             port:

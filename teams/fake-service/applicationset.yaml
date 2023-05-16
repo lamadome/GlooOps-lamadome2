@@ -9,10 +9,15 @@ spec:
   generators:
   - List:
       elements:
-      - name: frontend
+      - name: cluster1
         cluster: cluster1
-      - name: backend
+        ns: frontend
+      - name: cluster1-canary
+        cluster: cluster1
+        ns: backend
+      - name: cluster2
         cluster: cluster2
+        ns: backend
   template:
     metadata:
       name: 'fake-service-{{name}}'
@@ -24,7 +29,6 @@ spec:
         path: teams/fake-service/{{cluster}}
       destination:
         name: '{{cluster}}'
-        namespace: fake-{{name}}
       syncPolicy:
         automated: null
         managedNamespaceMetadata:

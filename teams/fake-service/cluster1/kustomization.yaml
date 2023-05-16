@@ -4,11 +4,11 @@ kind: Kustomization
 resources:
 - frontend.yaml
 - backend.yaml
-- backend-canary.yaml
 - virtualdestination-fake-backend.yaml
+- virtualdestination-fake-backend-canary.yaml
 - routetable-fake-frontend.yaml
 - routetable-fake-backend.yaml
 - fake-service-workspace-settings.yaml
 images:
-- name: lamadome/fake-service
+- name:  lamadome/fake-service
   newTag: 2d57c3960882d06257f1c89debaede17e1f85879

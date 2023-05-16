@@ -1,0 +1,18 @@
+apiVersion: networking.gloo.solo.io/v2
+kind: VirtualDestination
+metadata:
+  name: backend-canary
+  namespace: fake-backend
+  labels:
+    expose: "true"
+spec:
+  hosts:
+  - fake-backend-canary.global
+  services:
+  - namespace: fake-backend
+    labels:
+      app: backend
+      version: canary
+  ports:
+    - number: 9090
+      protocol: HTTP
