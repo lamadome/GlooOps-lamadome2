@@ -12,6 +12,9 @@ spec:
   - namespace: fake-backend
     labels:
       app: backend
+  - namespace: fake-backend
+      labels:
+        app: backend-canary
   ports:
     - number: 9090
       protocol: HTTP
