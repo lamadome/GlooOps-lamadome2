@@ -8,7 +8,7 @@ metadata:
 spec:
   hosts:
     - backend.fake-backend
-    - backend.global
+    - fake-backend.global
   workloadSelectors:
   - selector:
       labels:
