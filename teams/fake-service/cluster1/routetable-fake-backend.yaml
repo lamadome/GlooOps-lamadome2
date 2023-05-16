@@ -23,7 +23,7 @@ spec:
           - ref:
               name: backend
               namespace: fake-backend
-            kind: VIRTUAL_DESTINATION
+            kind: SERVICE
             subset:
               version: stable
             port:
