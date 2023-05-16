@@ -123,9 +123,9 @@ jobs:
           
       - name: Update fake-service Deployment YAML
         run: |
-          cd ./teams/fake-service/cluster1
+          cd ./teams/fake-service/cluster1-canary
           kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
-          cd ../cluster2
+          cd ../cluster2-canary
           kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
       - name: Commit back any changes
         run: |
