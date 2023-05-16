@@ -27,15 +27,3 @@ jobs:
           argo-url: ${{ secrets.ARGOCD_SERVER }}
           type: app
           revision: $GITHUB_SHA
-#      - name: notify-argo
-#        run: |
-#          curl https://${{ secrets.ARGOCD_SERVER }}/api/v1/applications/fake-service-frontend/sync \
-#            -X POST \
-#            -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
-#            -H 'Content-Type: application/json' \
-#            -d '{"revision": "'$GITHUB_SHA'"}'
-#          curl https://${{ secrets.ARGOCD_SERVER }}/api/v1/applications/fake-service-backend/sync \
-#            -X POST \
-#            -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
-#            -H 'Content-Type: application/json' \
-#            -d '{"revision": "'$GITHUB_SHA'"}'
