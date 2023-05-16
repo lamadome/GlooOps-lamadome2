@@ -30,9 +30,9 @@ spec:
               number: 9090
             weight: 50
           - ref:
-              name: backend-canary
+              name: backend
               namespace: fake-backend
-            kind: SERVICE
+            kind: VIRTUAL_DESTINATION
             subset:
               version: canary
             port:
