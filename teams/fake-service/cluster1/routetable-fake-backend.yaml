@@ -9,6 +9,10 @@ spec:
   hosts:
     - backend.fake-backend
     - backend.global
+  workloadSelectors:
+  - selector:
+      labels:
+        app: frontend
   http:
     - name: fake-backend
       matchers:
