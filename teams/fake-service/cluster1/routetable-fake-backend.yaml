@@ -28,8 +28,6 @@ spec:
               name: backend
               namespace: fake-backend
             kind: VIRTUAL_DESTINATION
-            subset:
-              version: stable
             port:
               number: 9090
             weight: 100
