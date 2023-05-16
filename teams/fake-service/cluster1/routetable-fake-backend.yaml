@@ -27,7 +27,7 @@ spec:
           - ref:
               name: backend
               namespace: fake-backend
-            kind: VIRTUALDESTINATION
+            kind: VIRTUAL_DESTINATION
             subset:
               version: stable
             port:
@@ -36,7 +36,7 @@ spec:
           - ref:
               name: backend-canary
               namespace: fake-backend
-            kind: VIRTUALDESTINATION
+            kind: VIRTUAL_DESTINATION
             subset:
               version: canary
             port:
