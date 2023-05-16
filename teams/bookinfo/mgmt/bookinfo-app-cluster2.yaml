@@ -8,7 +8,7 @@ metadata:
 spec:
   project: bookinfo
   sources:
-    - repoURL:  'https://github.com/lamadome/GlooOps-lamadome'
+    - repoURL:  'https://github.com/lamadome/GlooOps-lamadome2'
       targetRevision: HEAD
       ref: myRepo
     - path: teams/bookinfo/base/istio-bookinfo
