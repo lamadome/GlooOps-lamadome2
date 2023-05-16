@@ -12,7 +12,7 @@ spec:
       targetRevision: HEAD
       ref: myRepo
     - path: teams/bookinfo/base/istio-bookinfo
-      repoURL: 'https://github.com/lamadome/GlooOps-lamadome'
+      repoURL: 'https://github.com/lamadome/GlooOps-lamadome2'
       targetRevision: HEAD
       helm:
         valueFiles:
