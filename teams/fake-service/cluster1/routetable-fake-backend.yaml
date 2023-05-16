@@ -27,7 +27,7 @@ spec:
           - ref:
               name: backend
               namespace: fake-backend
-            kind: SERVICE
+            kind: VIRTUAL_DESTINATION
             port:
               number: 9090
             weight: 100
