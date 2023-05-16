@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         app: backend
+        version: v1
     spec:
       containers:
         - name: backend
@@ -35,6 +36,7 @@ metadata:
   namespace: fake-backend
   labels:
     app: backend
+    version: v1
 spec:
   selector:
     app: backend
