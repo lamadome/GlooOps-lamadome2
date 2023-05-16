@@ -13,6 +13,9 @@ spec:
   - selector:
       labels:
         app: frontend
+  - selector:
+      labels:
+        app: backend
   http:
     - name: fake-backend-stable
       matchers:
