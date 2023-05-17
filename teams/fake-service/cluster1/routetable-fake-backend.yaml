@@ -17,11 +17,6 @@ spec:
   - selector:
       labels:
         app: backend
-        version: stable
-  - selector:
-      labels:
-        app: backend
-        version: canary
   http:
     - name: fake-backend-stable
       matchers:
