@@ -4,3 +4,4 @@ resources:
 - gateways-workspace.yaml
 - bookinfo-workspace.yaml
 - fake-service-workspace.yaml
+- workspace-settings.yaml
