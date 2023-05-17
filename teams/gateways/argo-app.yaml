@@ -18,7 +18,7 @@ spec:
       source:
         repoURL: https://github.com/lamadome/GlooOps-lamadome2
         targetRevision: HEAD
-        path: 'teams/platform/gateways/{{cluster}}'
+        path: 'teams/gateways/{{cluster}}'
       destination:
         name: '{{cluster}}'
       syncPolicy:

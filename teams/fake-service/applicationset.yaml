@@ -11,13 +11,12 @@ spec:
       elements:
       - name: cluster1
         cluster: cluster1
-        ns: frontend
       - name: cluster1-canary
         cluster: cluster1
-        ns: backend
       - name: cluster2
         cluster: cluster2
-        ns: backend
+      - name: cluster2-canary
+        cluster: cluster2
   template:
     metadata:
       name: 'fake-service-{{name}}'
@@ -26,7 +25,7 @@ spec:
       source:
         repoURL: 'https://github.com/lamadome/GlooOps-lamadome2'
         targetRevision: main
-        path: teams/fake-service/{{cluster}}
+        path: teams/fake-service/{{name}}
       destination:
         name: '{{cluster}}'
       syncPolicy:
