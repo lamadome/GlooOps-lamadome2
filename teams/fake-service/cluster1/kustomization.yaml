@@ -1,16 +1,15 @@
-#test
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- frontend.yaml
-- backend.yaml
-- virtualdestination-fake-backend.yaml
-- routetable-fake-frontend.yaml
-- routetable-fake-backend.yaml
-- fake-service-workspace-settings.yaml
+  - frontend.yaml
+  - backend.yaml
+  - virtualdestination-fake-backend.yaml
+  - routetable-fake-frontend.yaml
+  - routetable-fake-backend.yaml
+  - fake-service-workspace-settings.yaml
 images:
-- name:  lamadome/fake-service
-  newTag: 2d57c3960882d06257f1c89debaede17e1f85879
+  - name: lamadome/fake-service
+    newTag: 2d57c3960882d06257f1c89debaede17e1f85879
 patches:
   - target:
       kind: RouteTable
@@ -20,7 +19,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/http/0/forwardTo/destinations/0/weight
-        value: 100
+        value: 50
       - op: replace
         path: /spec/http/0/forwardTo/destinations/1/weight
-        value: 0
+        value: 50
