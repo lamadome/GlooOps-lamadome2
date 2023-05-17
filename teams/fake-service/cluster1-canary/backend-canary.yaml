@@ -28,22 +28,3 @@ spec:
               value: "backend-cluster1-canary"
           ports:
             - containerPort: 9090
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-canary
-  namespace: fake-backend
-  labels:
-    app: backend
-    version: canary
-spec:
-  selector:
-    app: backend
-    version: canary
-  ports:
-    - protocol: TCP
-      port: 9090
-      targetPort: 9090
-  type: ClusterIP
