@@ -30,7 +30,9 @@ spec:
             kind: VIRTUAL_DESTINATION
             port:
               number: 9090
-            weight: 100
+            weight: 50
+            subset:
+              version: stable
           - ref:
               name: backend
               namespace: fake-backend
@@ -39,5 +41,5 @@ spec:
               version: canary
             port:
               number: 9090
-            weight: 0
+            weight: 50
           
