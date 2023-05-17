@@ -5,7 +5,6 @@ resources:
 - frontend.yaml
 - backend.yaml
 - virtualdestination-fake-backend.yaml
-- virtualdestination-fake-backend-canary.yaml
 - routetable-fake-frontend.yaml
 - routetable-fake-backend.yaml
 - fake-service-workspace-settings.yaml
