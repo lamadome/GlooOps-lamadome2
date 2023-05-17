@@ -37,11 +37,9 @@ metadata:
   namespace: fake-backend
   labels:
     app: backend
-    version: stable
 spec:
   selector:
     app: backend
-    version: stable
   ports:
     - protocol: TCP
       port: 9090
