@@ -29,6 +29,8 @@ spec:
             port:
               number: 9090
             weight: 100
+            subset:
+              version: stable
           - ref:
               name: backend
               namespace: fake-backend
