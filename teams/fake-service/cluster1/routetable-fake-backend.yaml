@@ -7,8 +7,6 @@ metadata:
 #    expose: "true"
 spec:
   hosts:
-    - backend
-    - backend.fake-backend
     - fake-backend.global
   workloadSelectors:
     - selector:
