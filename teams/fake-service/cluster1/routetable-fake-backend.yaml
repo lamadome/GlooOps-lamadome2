@@ -30,7 +30,7 @@ spec:
             kind: VIRTUAL_DESTINATION
             port:
               number: 9090
-            weight: 50
+            weight: 100
             subset:
               version: stable
           - ref:
@@ -41,5 +41,5 @@ spec:
               version: canary
             port:
               number: 9090
-            weight: 50
+            weight: 0
           
