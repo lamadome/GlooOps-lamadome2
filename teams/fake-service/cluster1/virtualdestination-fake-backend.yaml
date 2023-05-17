@@ -5,6 +5,7 @@ metadata:
   namespace: fake-backend
   labels:
     expose: "true"
+    version: canary
 spec:
   hosts:
   - fake-backend.global
