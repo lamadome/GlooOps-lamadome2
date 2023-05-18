@@ -12,17 +12,33 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/argo-sync-app
-        name: Sync fake-service-frontend
+        name: Sync fake-service-cluster1
         with:
-          app-name: fake-service-frontend
+          app-name: fake-service-cluster1
           argo-token: ${{ secrets.ARGOCD_TOKEN }}
           argo-url: ${{ secrets.ARGOCD_SERVER }}
           type: app
           revision: $GITHUB_SHA
       - uses: ./.github/actions/argo-sync-app
-        name: Sync fake-service-backend
+        name: Sync fake-service-cluster1-canary
         with:
-          app-name: fake-service-backend
+          app-name: fake-service-cluster1-canary
+          argo-token: ${{ secrets.ARGOCD_TOKEN }}
+          argo-url: ${{ secrets.ARGOCD_SERVER }}
+          type: app
+          revision: $GITHUB_SHA      
+      - uses: ./.github/actions/argo-sync-app
+        name: Sync fake-service-cluster2
+        with:
+          app-name: fake-service-cluster2
+          argo-token: ${{ secrets.ARGOCD_TOKEN }}
+          argo-url: ${{ secrets.ARGOCD_SERVER }}
+          type: app
+          revision: $GITHUB_SHA
+      - uses: ./.github/actions/argo-sync-app
+        name: Sync fake-service-cluster2-canary
+        with:
+          app-name: fake-service-cluster2-canary
           argo-token: ${{ secrets.ARGOCD_TOKEN }}
           argo-url: ${{ secrets.ARGOCD_SERVER }}
           type: app
