@@ -54,13 +54,11 @@ jobs:
         run: |
           cd ./teams/fake-service/src
           go get -v -t ./...
-
       - name: Build
         run: |
           cd ./teams/fake-service/src
           CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/linux/amd64/fake-service
           CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o bin/linux/arm64/fake-service
-
       - uses: actions/upload-artifact@v2
         with:
           name: binaries
@@ -120,13 +118,18 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
-          
+      - name: Intall yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod a+x /usr/local/bin/yq
       - name: Update fake-service Deployment YAML
         run: |
           cd ./teams/fake-service/cluster1-canary
           kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
           cd ../cluster2-canary
           kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
+          cd ../cluster1
+          bash kustomize.sh
       - name: Commit back any changes
         run: |
           git config user.name github-actions
