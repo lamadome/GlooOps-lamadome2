@@ -39,4 +39,4 @@ spec:
               version: canary
             port:
               number: 9090
-            weight: 60
+            weight: 50
