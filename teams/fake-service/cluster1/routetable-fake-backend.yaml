@@ -6,8 +6,8 @@ metadata:
   labels:
     expose: "true"
 spec:
-  hosts:
-    - fake-backend.global
+#  hosts:
+#    - fake-backend.global
   workloadSelectors:
     - selector:
         labels:
