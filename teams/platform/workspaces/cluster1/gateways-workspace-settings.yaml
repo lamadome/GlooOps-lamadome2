@@ -13,6 +13,8 @@ spec:
     - kind: ALL
       labels:
         expose: "true"
+    - kind: ALL
+      labels:
         expose-payments: "true"
   exportTo:
   - workspaces:
