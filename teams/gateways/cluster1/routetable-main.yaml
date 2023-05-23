@@ -17,16 +17,16 @@ spec:
       - uri:
           exact: /fake
       delegate:
-        workspace: fake-service
         routeTables:
           - labels:
               expose: "true"
+            workspace: fake-service
     - name: payments
       matchers:
         - uri:
             exact: /fake
       delegate:
-        workspace: payments
         routeTables:
           - labels:
               expose: "true"
+            workspace: payments

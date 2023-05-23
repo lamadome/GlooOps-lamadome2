@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: payment-service-appset
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  generators:
+  - List:
+      elements:
+      - name: cluster1
+        cluster: cluster1
+      - name: cluster2
+        cluster: cluster2
+  template:
+    metadata:
+      name: 'payments-{{name}}'
+    spec:
+      project: payments
+      source:
+        repoURL: 'https://github.com/lamadome/GlooOps-lamadome2'
+        targetRevision: main
+        path: teams/payment-service/{{name}}
+      destination:
+        name: '{{cluster}}'
+        namespace: payments
+      syncPolicy:
+        automated: null
+        managedNamespaceMetadata:
+          labels:
+            istio.io/rev: 1-17
+        syncOptions:
+        - CreateNamespace=true
