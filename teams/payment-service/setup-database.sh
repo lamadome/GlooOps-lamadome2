@@ -51,6 +51,11 @@ vault write auth/k8s-cluster-1/role/payments-app \
      bound_service_account_namespaces=payments \
      policies=payments \
      ttl=24h
+vault write auth/k8s-cluster-2/role/payments-app \
+     bound_service_account_names=payments-app \
+     bound_service_account_namespaces=payments \
+     policies=payments \
+     ttl=24h
 
 vault secrets enable transit
 vault write -f transit/keys/payments-app
