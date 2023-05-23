@@ -15,7 +15,7 @@ spec:
     - name: fake
       matchers:
       - uri:
-          exact: /fake
+          exact: /
       delegate:
         routeTables:
           - labels:
