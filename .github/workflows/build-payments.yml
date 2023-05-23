@@ -30,7 +30,7 @@ jobs:
           docker build  \
             -t lamadome/fake-service:${GITHUB_SHA} \
             -f Dockerfile \
-            --push
+          docker push lamadome/fake-service:${GITHUB_SHA}
           echo "Outputting digest: $GITHUB_SHA"
           echo "sha=$GITHUB_SHA" >> $GITHUB_OUTPUT    
 
