@@ -5,6 +5,7 @@ on:
     branches: [ "main" , "argo-commit-pinning" ]
     paths:
       - teams/fake-service/src/**
+      - !teams/fake-service/cluster1/kustomization.yaml
 jobs:
   ui:
     env:
