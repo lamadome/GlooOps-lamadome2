@@ -60,7 +60,7 @@ const NodeInnerCustom = ({ node, children, ...otherProps }) => {
               <Col className="node-value" md={1}>{node.properties.response}</Col>
             </Row>
             <Row>
-              <Col className="node-key" md={5}>Stable Release</Col>
+              <Col className="node-key" md={5}>Canary Release</Col>
             </Row>
           </Container>
         </Col>
