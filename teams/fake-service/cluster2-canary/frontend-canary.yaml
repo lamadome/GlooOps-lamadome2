@@ -11,12 +11,11 @@ spec:
   selector:
     matchLabels:
       app: frontend
-      version: stable
   template:
     metadata:
       labels:
         app: frontend
-        version: stable
+        version: canary
     spec:
       containers:
         - name: frontend
@@ -25,7 +24,7 @@ spec:
             - name: LISTEN_ADDR
               value: "0.0.0.0:8080"
             - name: NAME
-              value: "frontend-cluster2"
+              value: "frontend-cluster2-canary"
             - name: UPSTREAM_URIS
               value: "http://fake-backend.global:9090"
           ports:

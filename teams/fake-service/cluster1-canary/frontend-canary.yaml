@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         app: frontend
+        version: canary
     spec:
       containers:
         - name: frontend
@@ -23,7 +24,7 @@ spec:
             - name: LISTEN_ADDR
               value: "0.0.0.0:8080"
             - name: NAME
-              value: "frontend"
+              value: "frontend-cluster1-canary"
             - name: UPSTREAM_URIS
               value: "http://fake-backend.global:9090"
           ports:

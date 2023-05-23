@@ -11,10 +11,12 @@ spec:
   selector:
     matchLabels:
       app: frontend
+      version: stable
   template:
     metadata:
       labels:
         app: frontend
+        version: stable
     spec:
       containers:
         - name: frontend
