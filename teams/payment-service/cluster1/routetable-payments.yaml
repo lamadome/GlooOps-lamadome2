@@ -1,0 +1,21 @@
+apiVersion: networking.gloo.solo.io/v2
+kind: RouteTable
+metadata:
+  name: payments
+  namespace: payments
+  labels:
+    expose: "true"
+spec:
+  http:
+    - name: payments
+      matchers:
+      - uri:
+          exact: /
+      forwardTo:
+        destinations:
+          - ref:
+              name: payments-app
+              namespace: payments
+            kind: SERVICE
+            port:
+              number: 8081
