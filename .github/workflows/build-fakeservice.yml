@@ -126,8 +126,6 @@ jobs:
         run: |
           cd ./teams/fake-service/cluster1-canary
           kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
-          cd ../cluster2-canary
-          kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
           cd ../cluster1
           bash kustomize.sh
       - name: Commit back any changes
@@ -135,6 +133,5 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add teams/fake-service/cluster1-canary/*.yaml
-          git add teams/fake-service/cluster2-canary/*.yaml
           git commit -m "Set image tag to ${GITHUB_SHA}"  || true
           git push
