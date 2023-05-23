@@ -14,3 +14,4 @@ spec:
   - name: cluster2
     namespaces:
     - name: fake-backend
+    - name: fake-frontend
