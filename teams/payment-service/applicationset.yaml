@@ -26,7 +26,7 @@ spec:
         name: '{{cluster}}'
         namespace: payments
       syncPolicy:
-        automated: null
+        automated: {}
         managedNamespaceMetadata:
           labels:
             istio.io/rev: 1-17
