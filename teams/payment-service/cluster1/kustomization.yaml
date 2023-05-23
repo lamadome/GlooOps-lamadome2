@@ -5,3 +5,4 @@ resources:
 - payments-database.yaml
 - payments-processor.yaml
 - workspace-settings.yaml
+- routetable-payments.yaml
