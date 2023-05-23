@@ -15,10 +15,10 @@ patches:
 - patch: |-
     - op: replace
       path: /spec/http/0/forwardTo/destinations/0/weight
-      value: 100
+      value: 90
     - op: replace
       path: /spec/http/0/forwardTo/destinations/1/weight
-      value: 0
+      value: 10
   target:
     group: networking.gloo.solo.io
     kind: RouteTable
