@@ -22,5 +22,5 @@ patches:
   target:
     group: networking.gloo.solo.io
     kind: RouteTable
-    name: fake-backend
+    name: fake-frontend
     version: v2
