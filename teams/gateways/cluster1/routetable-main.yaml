@@ -20,7 +20,7 @@ spec:
         routeTables:
           - labels:
               expose: "true"
-            workspace: fake-service
+#            workspace: fake-service
 #    - name: payments
 #      matchers:
 #        - uri:
