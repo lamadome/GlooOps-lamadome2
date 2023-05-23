@@ -6,3 +6,4 @@ resources:
 - payments-processor.yaml
 - workspace-settings.yaml
 - routetable-payments.yaml
+- virtualdestination-payments.yaml
