@@ -10,7 +10,7 @@ resources:
 - fake-service-workspace-settings.yaml
 images:
 - name: lamadome/fake-service
-  newTag: 05365116c5a17a8979e54c8aac81e0708c46c29
+  newTag: 05365116c5a17a8979e54c8aac81e0708c46c292
 patches:
 - patch: |-
     - op: replace
