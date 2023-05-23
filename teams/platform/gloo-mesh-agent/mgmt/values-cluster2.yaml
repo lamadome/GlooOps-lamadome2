@@ -1,8 +1,8 @@
 relay:
-  serverAddress: :9900
+  serverAddress: 172.18.101.1:9900
   authority: gloo-mesh-mgmt-server.gloo-mesh
 rate-limiter:
   enabled: false
 ext-auth-service:
   enabled: false
-cluster: cluster1
+cluster: cluster2

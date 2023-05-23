@@ -72,7 +72,7 @@ rate-limiter:
   enabled: false
 ext-auth-service:
   enabled: false
-cluster: cluster1
+cluster: cluster2
 EOF
 
 git add .
