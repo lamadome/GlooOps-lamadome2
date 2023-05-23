@@ -28,15 +28,15 @@ spec:
             kind: VIRTUAL_DESTINATION
             port:
               number: 9090
-#            weight: 50
-#            subset:
-#              version: stable
-#          - ref:
-#              name: backend
-#              namespace: fake-backend
-#            kind: VIRTUAL_DESTINATION
-#            subset:
-#              version: canary
-#            port:
-#              number: 9090
-#            weight: 50
+            weight: 50
+            subset:
+              version: stable
+          - ref:
+              name: backend
+              namespace: fake-backend
+            kind: VIRTUAL_DESTINATION
+            subset:
+              version: canary
+            port:
+              number: 9090
+            weight: 50
