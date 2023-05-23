@@ -10,7 +10,7 @@ spec:
     - name: fake-frontend
       matchers:
       - uri:
-          exact: /fake
+          exact: /
       forwardTo:
         destinations:
           - ref:
