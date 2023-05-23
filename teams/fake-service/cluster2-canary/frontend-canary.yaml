@@ -11,6 +11,7 @@ spec:
   selector:
     matchLabels:
       app: frontend
+      version: canary
   template:
     metadata:
       labels:
