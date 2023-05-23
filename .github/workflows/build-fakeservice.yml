@@ -134,7 +134,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add teams/fake-service/cluster1/*.yaml
-          git add teams/fake-service/cluster2/*.yaml
+          git add teams/fake-service/cluster1-canary/*.yaml
+          git add teams/fake-service/cluster2-canary/*.yaml
           git commit -m "Set image tag to ${GITHUB_SHA}"  || true
           git push
