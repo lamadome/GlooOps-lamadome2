@@ -53,7 +53,7 @@ export ENDPOINT_GLOO_MESH=$(kubectl --context ${MGMT} -n gloo-mesh get svc gloo-
 export HOST_GLOO_MESH=$(echo ${ENDPOINT_GLOO_MESH} | cut -d: -f1)
 export GLOO_MESH_UI=http://$(kubectl --context ${MGMT} -n gloo-mesh get svc gloo-mesh-ui -o jsonpath='{.status.loadBalancer.ingress[0].*}'):8090
 
-cat <<EOF > $DIR/teams/platform/gloo-mesh-agent/mgmt/values-cluster1.yaml
+cat <<EOF > $DIR/teams/platform/gloo-mesh-agent/in-cluster/values-cluster1.yaml
 relay:
   serverAddress: ${ENDPOINT_GLOO_MESH}
   authority: gloo-mesh-mgmt-server.gloo-mesh
@@ -64,7 +64,7 @@ ext-auth-service:
 cluster: cluster1
 EOF
 
-cat <<EOF > $DIR/teams/platform/gloo-mesh-agent/mgmt/values-cluster2.yaml
+cat <<EOF > $DIR/teams/platform/gloo-mesh-agent/in-cluster/values-cluster2.yaml
 relay:
   serverAddress: ${ENDPOINT_GLOO_MESH}
   authority: gloo-mesh-mgmt-server.gloo-mesh
