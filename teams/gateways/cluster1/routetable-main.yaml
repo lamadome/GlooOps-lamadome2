@@ -21,12 +21,11 @@ spec:
           - labels:
               expose: "true"
 #            workspace: fake-service
-#    - name: payments
-#      matchers:
-#        - uri:
-#            exact: /fake
-#      delegate:
-#        routeTables:
-#          - labels:
-#              expose: "true"
-#            workspace: payments
+    - name: payments
+      matchers:
+        - uri:
+            exact: /fake
+      delegate:
+        routeTables:
+          - labels:
+              expose-payments: "true"

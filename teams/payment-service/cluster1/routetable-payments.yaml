@@ -4,7 +4,7 @@ metadata:
   name: payments
   namespace: payments
   labels:
-    expose: "true"
+    expose-payments: "true"
 spec:
   http:
     - name: payments
