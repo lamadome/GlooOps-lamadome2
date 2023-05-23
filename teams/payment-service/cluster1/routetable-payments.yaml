@@ -10,7 +10,7 @@ spec:
     - name: payments
       matchers:
       - uri:
-          exact: /payments
+          prefix: /payments
       forwardTo:
         destinations:
           - ref:
