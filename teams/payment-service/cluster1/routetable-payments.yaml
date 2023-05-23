@@ -4,10 +4,13 @@ metadata:
   name: payments
   namespace: payments
   labels:
-    expose-payments: "true"
+    expose: "true"
 spec:
   http:
     - name: payments
+      matchers:
+      - uri:
+          exact: /payments
       forwardTo:
         destinations:
           - ref:
@@ -16,4 +19,3 @@ spec:
             kind: SERVICE
             port:
               number: 8081
-        pathRewrite: /

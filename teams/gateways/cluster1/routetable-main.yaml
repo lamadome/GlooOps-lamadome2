@@ -12,7 +12,7 @@ spec:
       cluster: cluster1
   workloadSelectors: []
   http:
-    - name: fake
+    - name: root
       matchers:
       - uri:
           exact: /
@@ -20,12 +20,3 @@ spec:
         routeTables:
           - labels:
               expose: "true"
-#            workspace: fake-service
-    - name: payments
-      matchers:
-        - uri:
-            exact: /fake
-      delegate:
-        routeTables:
-          - labels:
-              expose-payments: "true"
