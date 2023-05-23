@@ -26,7 +26,7 @@ jobs:
 
       - name: Build and push Docker
         run: |
-          cd ./teams/payments-service/payments-app/java/src/
+          cd ./teams/payment-service/src/payments-app/java/src/
           docker build  \
             -t lamadome/fake-service:${GITHUB_SHA} \
             -f Dockerfile \
