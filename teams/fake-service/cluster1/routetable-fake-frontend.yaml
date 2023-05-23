@@ -16,6 +16,6 @@ spec:
           - ref:
               name: frontend
               namespace: fake-frontend
-            kind: SERVICE
+            kind: VIRTUAL_DESTINATION
             port:
               number: 8080

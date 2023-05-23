@@ -1,0 +1,28 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: relay-server-tls
+  namespace: gloo-mesh
+spec:
+  commonName: "${COMMON_NAME}"
+  dnsNames:
+    - "${COMMON_NAME}"
+    - "${COMMON_NAME}.gloo-mesh"
+    - "${COMMON_NAME}.gloo-mesh.svc"
+    - "*.gloo-mesh"
+  secretName: relay-server-tls-secret
+  duration: 720h
+  renewBefore: 700h
+  privateKey:
+    rotationPolicy: Always
+    algorithm: RSA
+    size: 2048
+  usages:
+    - digital signature
+    - key encipherment
+    - server auth
+    - client auth
+  issuerRef:
+    name: vault-issuer
+    kind: Issuer
+    group: cert-manager.io

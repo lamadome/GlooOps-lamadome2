@@ -1,0 +1,17 @@
+apiVersion: networking.gloo.solo.io/v2
+kind: VirtualDestination
+metadata:
+  name: backend
+  namespace: fake-backend
+  labels:
+    expose: "true"
+spec:
+  hosts:
+  - fake-frontend.global
+  services:
+  - namespace: fake-backend
+    labels:
+      app: frontend
+  ports:
+    - number: 8080
+      protocol: HTTP

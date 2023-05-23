@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-issuer
+  namespace: gloo-mesh
+spec:
+  vault:
+    path: relay-pki-int/sign/gloo-mesh-mgmt-server
+    server: ${VAULT_ADDR}
+    auth:
+      tokenSecretRef:
+        name: vault-token
+        key: token

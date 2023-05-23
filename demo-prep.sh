@@ -40,12 +40,14 @@ metadata:
   namespace: gloo-mesh
 EOF
 
+rm ca.crt
+rm token
+
 git add .
 git commit -m "add tls and token secret"
 git push
 
-rm ca.crt
-rm token
+
 
 export ENDPOINT_GLOO_MESH=$(kubectl --context ${MGMT} -n gloo-mesh get svc gloo-mesh-mgmt-server -o jsonpath='{.status.loadBalancer.ingress[0].*}'):9900
 export HOST_GLOO_MESH=$(echo ${ENDPOINT_GLOO_MESH} | cut -d: -f1)

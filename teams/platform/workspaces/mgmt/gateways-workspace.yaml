@@ -7,9 +7,9 @@ spec:
   workloadClusters:
   - name: cluster1
     namespaces:
-    - name: istio-gateways
+    - name: istio-system
     - name: gloo-mesh-addons
   - name: cluster2
     namespaces:
-    - name: istio-gateways
+    - name: istio-system
     - name: gloo-mesh-addons
