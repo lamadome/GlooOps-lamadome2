@@ -46,6 +46,7 @@ vault write payments/database/roles/payments-app \
 		GRANT ALL PRIVILEGES ON payments TO \"{{name}}\";" \
     default_ttl="2m" \
     max_ttl="4m"
+
 vault write auth/k8s-cluster-1/role/payments-app \
      bound_service_account_names=payments-app \
      bound_service_account_namespaces=payments \
