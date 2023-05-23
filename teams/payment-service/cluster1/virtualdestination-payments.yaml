@@ -1,7 +1,7 @@
 apiVersion: networking.gloo.solo.io/v2
 kind: VirtualDestination
 metadata:
-  name: payment
+  name: payments-app
   namespace: payments
   labels:
     expose: "true"
