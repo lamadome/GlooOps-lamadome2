@@ -27,9 +27,7 @@ jobs:
       - name: Build and push Docker
         run: |
           cd ./teams/payment-service/src/payments-app/java/src/
-          docker build  \
-            -t lamadome/fake-service:${GITHUB_SHA} \
-            -f Dockerfile \
+          docker build . -t lamadome/fake-service:${GITHUB_SHA}
           docker push lamadome/fake-service:${GITHUB_SHA}
           echo "Outputting digest: $GITHUB_SHA"
           echo "sha=$GITHUB_SHA" >> $GITHUB_OUTPUT    
