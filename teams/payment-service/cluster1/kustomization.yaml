@@ -4,3 +4,4 @@ resources:
 - payments-app.yaml
 - payments-database.yaml
 - payments-processor.yaml
+- workspace-settings.yaml
