@@ -8,9 +8,6 @@ metadata:
 spec:
   http:
     - name: payments
-      matchers:
-      - uri:
-          exact: /
       forwardTo:
         destinations:
           - ref:
