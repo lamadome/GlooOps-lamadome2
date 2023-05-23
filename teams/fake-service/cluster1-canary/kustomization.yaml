@@ -5,4 +5,4 @@ resources:
 - frontend-canary.yaml
 images:
 - name: lamadome/fake-service
-  newTag: 0a3aa968d251ec78ceeef48f6627af80684be187
+  newTag: b65627580651fc650b03e47269916f06ed884ff4
