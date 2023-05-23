@@ -1,6 +1,6 @@
 # Read Me First
 The following was discovered as part of building this project:
-d
+
 * The original package name 'com.hashicorp-dev-advocates.payments-app' is invalid and this project uses 'com.hashicorpdevadvocates.paymentsapp' instead.
 
 # Getting Started
