@@ -1,0 +1,67 @@
+---
+name: Build and Publish fake-service
+on:
+  push:
+    branches: [ "main" , "argo-commit-pinning" ]
+    paths:
+      - teams/payment-service/src/**
+jobs:
+  release:
+    env:
+      GONOSUMDB: "github.com/moby/moby"
+    outputs:
+      sha: ${{ steps.digest.outputs.digest }}
+    name: Release Application
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.WORKFLOW_TOKEN }}
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker
+        run: |
+          cd ./teams/payments-service/payments-app/java/src/
+          docker build  \
+            -t lamadome/fake-service:${GITHUB_SHA} \
+            -f Dockerfile \
+            --push
+          echo "Outputting digest: $GITHUB_SHA"
+          echo "sha=$GITHUB_SHA" >> $GITHUB_OUTPUT    
+
+#  update-deployment:
+#    name: Update K8s deployment manifests
+#    runs-on: ubuntu-latest
+#    needs: release
+#    permissions:
+#      contents: write
+#    steps:
+#      - uses: actions/checkout@v3
+#        with:
+#          token: ${{ secrets.WORKFLOW_TOKEN }}
+#      - name: Intall yq
+#        run: |
+#          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+#          sudo chmod a+x /usr/local/bin/yq
+#      - name: Update fake-service Deployment YAML
+#        run: |
+#          cd ./teams/fake-service/cluster1-canary
+#          kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
+#          cd ../cluster2-canary
+#          kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
+#          cd ../cluster1
+#          bash kustomize.sh
+#      - name: Commit back any changes
+#        run: |
+#          git config user.name github-actions
+#          git config user.email github-actions@github.com
+#          git add teams/fake-service/cluster1/*.yaml
+#          git add teams/fake-service/cluster2/*.yaml
+#          git commit -m "Set image tag to ${GITHUB_SHA}"  || true
+#          git push

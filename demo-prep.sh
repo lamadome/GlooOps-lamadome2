@@ -134,6 +134,9 @@ kubectl --context ${CLUSTER2} label namespace fake-frontend istio.io/rev=1-17
 argocd proj create -f "$DIR/teams/fake-service/appproject.yaml"
 argocd appset create "$DIR/teams/fake-service/applicationset.yaml"
 
+bash $DIR/scripts/Vault/setup-istio-gloo.sh
+bash $DIR/teams/payment-service/setup-database.sh
+
 argocd proj create -f "$DIR/teams/payment-service/appproject.yaml"
 argocd appset create "$DIR/teams/payment-service/applicationset.yaml"
 
