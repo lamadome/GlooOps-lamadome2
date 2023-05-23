@@ -11,8 +11,6 @@ spec:
       matchers:
       - uri:
           prefix: /
-      - uri:
-          prefix: /ui
       forwardTo:
         destinations:
           - ref:
