@@ -16,7 +16,7 @@ spec:
           - ref:
               name: frontend
               namespace: fake-frontend
-            kind: VIRTUAL_DESTINATION
+            kind: SERVICE
             port:
               number: 8080
             weight: 50
