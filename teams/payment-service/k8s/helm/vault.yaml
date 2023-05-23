@@ -1,0 +1,10 @@
+server:
+  service:
+    type: NodePort
+    nodePort: 30820
+  dev:
+    enabled: true
+    devRootToken: "some-root-token"
+
+csi:
+  enabled: true

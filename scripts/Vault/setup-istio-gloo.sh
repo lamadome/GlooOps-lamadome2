@@ -174,10 +174,10 @@ export VAULT_LB=$(kubectl --context ${MGMT} get svc -n vault vault \
           -o jsonpath='{.status.loadBalancer.ingress[0].*}')
 export VAULT_ADDR="http://${VAULT_LB}:8200"
 
-generate_root
-
-generate_int_cluster 1
-generate_int_cluster 2
+#generate_root
+#
+#generate_int_cluster 1
+#generate_int_cluster 2
 
 connect_cluster $CLUSTER1 1
 connect_cluster $CLUSTER2 2

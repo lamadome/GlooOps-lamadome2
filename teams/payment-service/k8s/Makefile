@@ -1,0 +1,34 @@
+minikube:
+	bash scripts/minikube.sh
+
+setup: minikube
+	helm upgrade --install csi secrets-store-csi-driver/secrets-store-csi-driver -f helm/csi.yaml --namespace kube-system --kube-context cluster1
+	helm upgrade --install csi secrets-store-csi-driver/secrets-store-csi-driver -f helm/csi.yaml --namespace kube-system --kube-context cluster2
+	kubectl --namespace kube-system rollout status daemonset/csi-secrets-store-csi-driver
+	kubectl --namespace vault rollout status deployment/vault-agent-injector
+	kubectl apply -f applications/payments-database.yaml
+	kubectl rollout status deployment/payments-database
+	kubectl apply -f applications/payments-processor.yaml
+	kubectl rollout status deployment/payments-processor
+	bash scripts/setup.sh
+
+java:
+	kubectl apply -f applications/payments-app.yaml
+	# kubectl apply -f applications/payments-app-term.yaml
+	kubectl rollout status deployment/payments-app
+
+csi:
+	kubectl apply -f applications/payments-processor.csi.yaml
+	kubectl delete pods -l app=payments-app
+
+clean-cluster:
+	kubectl delete --ignore-not-found -f applications/
+	helm del vault --namespace vault
+	helm del csi --namespace kube-system
+	kill -9 $(shell cat pidfile)
+	rm -rf pidfile
+
+clean-minikube:
+	minikube delete
+
+clean: clean-cluster clean-minikube

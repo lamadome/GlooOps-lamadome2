@@ -15,8 +15,9 @@ spec:
     - name: root
       matchers:
       - uri:
-          prefix: /
+          prefix: /fake
       delegate:
+        workspace: fake-service
         routeTables:
           - labels:
               expose: "true"

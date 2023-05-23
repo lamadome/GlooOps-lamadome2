@@ -20,7 +20,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/http/0/forwardTo/destinations/0/weight
-        value: 50
+        value: 100
       - op: replace
         path: /spec/http/0/forwardTo/destinations/1/weight
-        value: 50
+        value: 0
