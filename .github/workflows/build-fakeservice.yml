@@ -124,6 +124,8 @@ jobs:
           sudo chmod a+x /usr/local/bin/yq
       - name: Update fake-service Deployment YAML
         run: |
+          cd ./teams/fake-service/cluster1-canary
+          kustomize edit set image lamadome/fake-service:${GITHUB_SHA}
           cd ../cluster1
           bash kustomize.sh
       - name: Commit back any changes
