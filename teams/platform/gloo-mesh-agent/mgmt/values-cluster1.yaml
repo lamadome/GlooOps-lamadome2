@@ -1,5 +1,5 @@
 relay:
-  serverAddress: 172.18.101.2:9900
+  serverAddress: :9900
   authority: gloo-mesh-mgmt-server.gloo-mesh
 rate-limiter:
   enabled: false
