@@ -16,3 +16,4 @@ spec:
             kind: SERVICE
             port:
               number: 8081
+        pathRewrite: /
