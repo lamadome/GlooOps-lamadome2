@@ -25,7 +25,7 @@ spec:
             - name: LISTEN_ADDR
               value: "0.0.0.0:8080"
             - name: NAME
-              value: "frontend-cluster1-canary"
+              value: "frontend-canary"
             - name: UPSTREAM_URIS
               value: "http://fake-backend.global:9090"
           ports:
