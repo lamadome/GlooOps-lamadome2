@@ -11,8 +11,11 @@ argocd app create -f "$DIR/teams/platform/mgmt-server/app-mgmt-server.yaml"
 
 sleep 5
 
-kubectl --context ${MGMT} -n gloo-mesh rollout status deploy/gloo-mesh-mgmt-server
-kubectl --context ${MGMT} -n gloo-mesh rollout status deploy/gloo-mesh-ui
+
+kubectl wait --context ${MGMT} --for=condition=Ready -n gloo-mesh --all pod
+until [[ $(kubectl --context ${MGMT} -n gloo-mesh get svc gloo-mesh-mgmt-server -o json | jq '.status.loadBalancer | length') -gt 0 ]]; do
+  sleep 1
+done
 
 kubectl --context $CLUSTER1 create ns gloo-mesh
 kubectl --context $CLUSTER2 create ns gloo-mesh
@@ -80,7 +83,7 @@ git commit -m "update relay address"
 git push
 
 argocd appset create "$DIR/teams/platform/gloo-mesh-agent/gloo-agents-app.yaml"
-
+kubectl wait --context ${context} --for=condition=Ready -n gloo-mesh --all pod
 kubectl --context ${CLUSTER1} -n gloo-mesh rollout status deploy/gloo-mesh-agent
 kubectl --context ${CLUSTER2} -n gloo-mesh rollout status deploy/gloo-mesh-agent
 
