@@ -5,8 +5,8 @@ export MGMT=mgmt
 export CLUSTER1=cluster1
 export CLUSTER2=cluster2
 
-helm upgrade --install csi secrets-store-csi-driver/secrets-store-csi-driver -f helm/csi.yaml --namespace kube-system --kube-context cluster1
-helm upgrade --install csi secrets-store-csi-driver/secrets-store-csi-driver -f helm/csi.yaml --namespace kube-system --kube-context cluster2
+#helm upgrade --install csi secrets-store-csi-driver/secrets-store-csi-driver -f helm/csi.yaml --namespace kube-system --kube-context cluster1
+#helm upgrade --install csi secrets-store-csi-driver/secrets-store-csi-driver -f helm/csi.yaml --namespace kube-system --kube-context cluster2
 
 kubectl --context $CLUSTER1 create ns payments
 kubectl --context $CLUSTER2 create ns payments
